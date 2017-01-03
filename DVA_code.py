@@ -1,5 +1,4 @@
-'''going to put choices handling in a for loop,going through all its hands
-as each iterations'''
+'''used method so python can see as one object neighbor not an object and a string'''
 
 
 from Distance_vect import *
@@ -23,10 +22,11 @@ class digit():
         self.r_value = 0
         self.u_value = 0
         self.d_value =0
-
+        self.innerdict = {}
+        
     def add(self,left,right,up,down,l,r,u,d):
 
-
+        
         self.left = left
         self.right = right
         self.up = up
@@ -39,14 +39,18 @@ class digit():
     def __str__(self):
 
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
+    
+    def tval (self,value = ''):
+        for i in self.innerlist:
+            print(i)
+            if value == i:
+                return i
+            
+        
 
-def DVB(source_ltr, dest_ltr,KM_P = []):
-    hands =[]
-    hands.append('left')
-    hands.append('right')
-    hands.append('up')
-    hands.append('down')
-    print('hands-----\n',hands)
+def DVB(source_ltr, dest_ltr,KM_P = [],hands = {'left':'l_value','right':'r_value','up':'u_value','down':'d_value'}):
+    
+    print('hands-----\n',hands,type(hands))
     print('source_ltr, dest_ltr,KM_P')
     print(source_ltr, dest_ltr,KM_P)
     KMP = [] #keep moving foward
@@ -70,80 +74,31 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
         xylis= DVA_table.find(source_ltr)
         print('KTLR,TLFT,choices,path_sum,xylis('+ source_ltr +')')
         print(KTLR,TLFT,choices,path_sum,xylis)
-        
-        if xylis.left != None:
-            print('left\n')
-            print('xylis('+ xylis.left +')')
-            
-            print(xylis.left)
-            if xylis.left not in KMP:
-                KTLR.append(xylis.left)
-                print('left\n')
-                print('KTLR')
-                print(KTLR)
-                path_sum += xylis.l_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print('in source_ltr    ' + source_ltr)
-                print('left\n')
-                print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
-                print(path_sum, xylis.l_value ,path_sum-xylis.l_value )
-                choices.append(path_sum)
-                print('left\n')
-                print('choices')
-                print(choices)
-        if xylis.right != None:
-            print('right\n')
-            print('xylis('+ xylis.right +')')
-            print(xylis.right)
-            if xylis.right not in KMP:
-                KTLR.append(xylis.right)
-                print('right\n')
-                print('KTLR')
-                print(KTLR)
-                path_sum += xylis.r_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print('in source_ltr    ' + source_ltr)
-                print('right\n')
-                print('path_sum from ' + source_ltr+ ' to ' + dest_ltr)
-                print(path_sum, xylis.r_value , path_sum - xylis.r_value)
-                choices.append(path_sum)
-                print('right\n')
-                print('choices')
-                print(choices)
-        if xylis.up != None:
-            print('up\n')
-            print('xylis('+ xylis.up +')')
-            print(xylis.up)
-            if xylis.up not in KMP:
-                KTLR.append(xylis.up)
-                print('up\n')
-                print('KTLR')
-                print(KTLR)
-                path_sum += xylis.u_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print('in source_ltr    ' + source_ltr)
-                print('up\n')
-                print('path_sum from ' + source_ltr  + ' to ' +   dest_ltr)
-                print(path_sum, xylis.u_value ,path_sum-  xylis.u_value)
-                choices.append(path_sum)
-                print('up\n')
-                print('choices')
-                print(choices)
-        if xylis.down != None:
-            print('down\n')
-            print('xylis('+ xylis.down +')')
-            print(xylis.down)
-            if xylis.down not in KMP:
-                KTLR.append(xylis.down)
-                print('down\n')
-                print('KTLR')
-                print(KTLR)
-                path_sum += xylis.d_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print('in source_ltr    ' + source_ltr)
-                print('down\n')
-                print('path_sum from ' + source_ltr+ ' to ' + dest_ltr)
-                print(path_sum, xylis.d_value , path_sum -xylis.d_value)
-                choices.append(path_sum)
-                print('down\n')
-                print('choices')
-                print(choices)
+        for i in hands:
+            jalis = 'xylis.' + i
+            print(type(jalis))
+            if xylis.i == None:
+                print(i)
+                print('xylis('+ xylis.i +')')
+                print(xylis.i)
+                print('\n')
+                
+                if xylis.i not in KMP:
+                    KTLR.append(xylis.i)
+                    print(i)
+                    print('KTLR')
+                    print(KTLR)
+                    print('\n')
+                    path_sum += xylis.hands[i] + DVB(KTLR[-1],dest_ltr,KMP)
+                    print('in source_ltr    ' + source_ltr)
+                    print(i)
+                    print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
+                    print(path_sum, xylis.hands[i],path_sum-xylis.hands[i] )
+                    choices.append(path_sum)
+                    print(i)
+                    print('choices')
+                    print(choices)
+                    print('\n')
         
         #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
         print('here are you choices and here is the shortest neighbor')
@@ -518,8 +473,9 @@ DVA_table['x'] = x
 
 
 print(DVA_table)
+print(u.tval('right'))
 
 
 
-print(str(DVB('u','x')))
+#print(str(DVB('u','x')))
 #table(DVB_table,'u','v','x','y','z')
