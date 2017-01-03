@@ -1,5 +1,4 @@
-'''try to have algorithm know of its neighbors that its
-previous node went through'''
+'''solves prev neigbor path '''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -80,7 +79,7 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
     
     else:
         KTLR = [] #memory of neighbors
-        KTLR = KTL_R
+        
         TLFT = [] #memory of paths
         choices = [] #memory of lengths 
         path_sum = 0 #gets the sum
@@ -88,7 +87,7 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
         xylis= DVA_table.find(source_ltr)
         if debug:
             print('KTLR,TLFT,choices,path_sum\n,xylis('+ source_ltr +')')
-            print(KTLR,TLFT,choices,path_sum,xylis)
+            print(KTLR,TLFT,choices,path_sum)
         i = 0
         for i in xylis.innerlist:
             if i[0][1] != None:
@@ -96,12 +95,12 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
                     print('===========')
                     print(i[0][0])
                     print(i[0][1])
-                     
+                    print(KTLR)
                     print('in xylis('+ source_ltr+')')
                     print('\n')
                 
                 if i[0][1] not in KMP:
-                    if i[0][1] not in KTLR:
+                    if i[0][1] not in KTL_R:
                         
                         if debug:
                             print(KTLR)
@@ -500,5 +499,5 @@ DVA_table['z'] = z
 #print(DVA_table)
 
 #print(u.valt('right'))
-print(str(DVB('u','y')))
+print(str(DVB('u','x')))
 #table(DVA_table,'u','v','x','y','z')
