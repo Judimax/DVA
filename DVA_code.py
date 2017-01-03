@@ -1,5 +1,8 @@
-'''Table starting to return proper values, and only value required for
-table
+'''Found big problem
+DVA code doesnt account that it has already been through chosen path
+make a recorder for it to go by
+recusion forgets to add original lengths from path to path
+rewrite DVA
 '''
 
 
@@ -43,7 +46,7 @@ class digit():
 
 
 def DVA(source_ltr,dest_ltr):
-
+        answer = input()
         global snap_this
         if snap_this == dest_ltr:
             print('starting to break')
@@ -87,10 +90,13 @@ def DVA(source_ltr,dest_ltr):
             
             if debug:
                 print('im in blue')
+                
             if xylis.left == dest_ltr:
                     
                         print('going inside blue')
                         snap_this = xylis.left
+                        if debug:
+                            print(snap_this)
                         blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
                         if debug == True:
                             print('this is left')
@@ -99,9 +105,12 @@ def DVA(source_ltr,dest_ltr):
                     
             if debug:
                 print('im in red')
+                
             if xylis.right == dest_ltr:
                         print('going inside red to get a value')
                         snap_this = xylis.right
+                        if debug:
+                            print(snap_this)
                         red = xylis.r_value + DVA(xylis.right,dest_ltr)[0]
                         if debug == True:
                             print('this is right')
@@ -113,6 +122,8 @@ def DVA(source_ltr,dest_ltr):
             if  xylis.up == dest_ltr:
                     print('going inside yellow to get a valuue')
                     snap_this = xylis.up
+                    if debug:
+                        print(snap_this)
                     yellow =xylis.u_value + DVA(xylis.up,dest_ltr)[0]
                     if debug == True:
                         print('this is up')
@@ -120,36 +131,44 @@ def DVA(source_ltr,dest_ltr):
                     print('getting out of yellow')
             if debug:
                 print('im in green')
+                
             if  xylis.down == dest_ltr:
                         
                         print('going inside green to get a value')
                         snap_this = xylis.down
-                        print(snap_this)
+                        if debug:
+                            print(snap_this)
                         green =xylis.d_value + DVA(xylis.down,dest_ltr)[0]
                         if debug == True:
                             print('this is down')
                             print((xylis.down), (dest_ltr))
                         print('getting out of green')
-                        print("if the letter here is not matching up with the dest something doesn't know something")
-                        print(snap_this)
+                        
 
 
             
                         
             else:
+
                 if debug:
                     print('now looking for destination')
-                
+                    time.sleep(2)
+                    print('now im going to blue')
                             
                 if xylis.l_value != 0:
                         if xylis.left != dest_ltr:
                             print('going inside blue to get a value')
                             snap_this = xylis.left
+                            if debug:
+                                print(snap_this)
                             blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
                         print('im in blue')
                         if debug == True:
                             print(blue)
                             print((xylis.left), (dest_ltr))
+                if debug:       
+                    print('now im going to red')
+                    
                 if xylis.r_value != 0:
                         if xylis.right != dest_ltr:
                             print('going inside red to get a value')
@@ -169,6 +188,8 @@ def DVA(source_ltr,dest_ltr):
                         if xylis.up != dest_ltr:
                             print('going inside yellow to get a value')
                             snap_this = xylis.up
+                            if debug:
+                                print(snap_this)
                             yellow =xylis.u_value + DVA(xylis.up,dest_ltr)[0]
                         print('im in yellow')
                         if debug == True:
@@ -182,6 +203,8 @@ def DVA(source_ltr,dest_ltr):
                         if xylis.down != dest_ltr:
                             print('going inside green to get a value')
                             snap_this = xylis.down
+                            if debug:
+                                print(snap_this)
                             green =xylis.d_value + DVA(xylis.down,dest_ltr)[0]
                         print('im in green')
                         if debug == True:
@@ -189,9 +212,10 @@ def DVA(source_ltr,dest_ltr):
                             print((xylis.down), (dest_ltr))
             
                 
-
-                
-            print("got out :)")
+            if debug:
+                print("if the letter here is not matching up with the dest something doesn't know something")
+                print(snap_this)    
+                print("got out thoo :)")
                         
             if debug == True:
                 print('here is the minimun value')
@@ -203,7 +227,6 @@ def DVA(source_ltr,dest_ltr):
             tarmnet.append(source_ltr)
             if debug:
                 print(tarmnet)
-            snap_this = ''
             return tarmnet
 
                 
@@ -235,7 +258,7 @@ def table(table,a,b,c,d,e):
         print("     /")
         print("     /")
 
-debug = False
+
 global DVA_table
 DVA_table= SuperMap(5)
 u = digit()
@@ -260,5 +283,5 @@ print(DVA_table)
 
 
 
-print(str(DVA('u','y'))[1])
-table(DVA_table,'u','v','x','y','z')
+print(str(DVA('u','x'))[1])
+#table(DVA_table,'u','v','x','y','z')
