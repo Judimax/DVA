@@ -1,5 +1,6 @@
-'''update seems to be printing values properly with subclass as digits that
-represents the node keeps intended data integrity or IDI'''
+'''update takes out the if __name__ == ""__main__() statement
+so aux module knows what it is working with
+'''
 
 
 from Distance_vect import * 
@@ -30,12 +31,12 @@ class digit():
         self.r_value = r
         self.u_value = u
         self.d_value = d
-
+"
     def __str__(self):
 
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
-DVA_table = []
+
 
     
         
@@ -59,32 +60,31 @@ def table(a,b,c,d,e):
         print("  z  /_____________________________________________")
         print("     /")
         print("     /")
-        
         print("     /")
         print("     /")
 
-if __name__ == "__main__":
+DVA_table = SuperMap()
 
-    DVA_table = SuperMap()
-    u = digit()
-    v = digit()
-    x = digit()
-    y = digit()
-    z = digit()
-    u.add(None,'v',None,'y',0,1,0,2)
-    v.add('u','z',None,'x',1,6,0,3)
-    x.add('y','z','v',None,3,3,2,0)
-    y.add(None,'x','u',None,0,3,2,0)
-    z.add('x',None,'v',None,2,0,6,0)
-    
-    DVA_table.append('u',u)
-    DVA_table.append('v',v)
-    DVA_table.append('x',x)
-    DVA_table.append('y',y)
-    DVA_table.append('z',z)
 
-    print(DVA_table)
+u = digit()
+v = digit()
+x = digit()
+y = digit()
+z = digit()
+u.add(None,'v',None,'y',0,1,0,2)
+v.add('u','z',None,'x',1,6,0,3)
+x.add('y','z','v',None,3,3,2,0)
+y.add(None,'x','u',None,0,3,2,0)
+z.add('x',None,'v',None,2,0,6,0)
 
-    
-    
-    #table(u,v,x,y,z)
+DVA_table.append('u',u)
+DVA_table.append('v',v)
+DVA_table.append('x',x)
+DVA_table.append('y',y)
+DVA_table.append('z',z)
+
+print(DVA_table)
+
+
+
+table('u','v','x','y','z')
