@@ -1,4 +1,5 @@
-'''used recursion to let dvb know the variables it cannot go back to as I recurse
+'''trying to fix KMP which is not working as intended
+
 '''
 
 
@@ -41,156 +42,70 @@ class digit():
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
 def DVB(source_ltr, dest_ltr,KM_P = []):
-    print('source_ltr, dest_ltr,KM_P')
+    print('source_ltr, dest_ltr,KM_P ')
     print(source_ltr, dest_ltr,KM_P)
     KMP = [] #keep moving foward
     KMP += KM_P
-    KMP.append(source_ltr)
-    print('source_ltr, dest_ltr,KM_P')
-    print(source_ltr, dest_ltr,KM_P)
     
     if source_ltr == dest_ltr:
         return 0
     else:
+        print('next')
+        
         KTLR = [] #memory of neighbors
-        TLFT = [] #memory of paths
         choices = [] #memory of lengths  
         path_sum = 0 #gets the sum
-        print('KTLR,T
         xylis= DVA_table.find(source_ltr)
         if xylis.left != None:
+            print('knocking on blues door')
             if xylis.left not in KMP:
+                print('in blue')
+                KMP.append(xylis.left)
                 KTLR.append(xylis.left)
                 path_sum += xylis.l_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print(choices)
                 choices.append(path_sum)
+                print(choices)
+                print(KMP)
+                print('out of blue')
+                
         if xylis.right != None:
+            print('knocking on reds door')
             if xylis.right not in KMP:
+                print('in red')
+                KMP.append(xylis.right)
                 KTLR.append(xylis.right)
                 path_sum += xylis.r_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print(choices)
                 choices.append(path_sum)
+                print(choices)
+                print(KMP)
+                print('out of red')
+                        
         if xylis.up != None:
+            print('knocking on yellows door')
             if xylis.up not in KMP:
+                print(' in yellow')
+                KMP.append(xylis.up)
                 KTLR.append(xylis.up)
                 path_sum += xylis.u_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print(choices)
                 choices.append(path_sum)
+                print(choices)
+                print(KMP)
+                print(' out of yellow')
         if xylis.down != None:
+            print('knocking on greens door')
             if xylis.down not in KMP:
+                print(' in green')
+                KMP.append(xylis.down)
                 KTLR.append(xylis.down)
                 path_sum += xylis.d_value + DVB(KTLR[-1],dest_ltr,KMP)
-                print(choices)
                 choices.append(path_sum)
+                print(choices)
+                print(KMP)
+                print(' out of green')
+            
         if debug:
             print(KTLR)
         #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum) 
-        return min(choices)
-        
-
-        
-        '''--------------------code to loop on'''
-        KMP.append(source_ltr) #knows not to go back
-        path_sum += 0 
-        xylis= DVA_table.find(source_ltr) #activates the string as a xylis
-        #node
-        if KMP[-1] == dest_ltr:
-            TLFT.append(KMP)
-            KMP= []
-            choices.append(path_sum)
-            path_sum = 0
-        if debug:
-            
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''--------------------------- code to loop on'''
-        KMP.append(xylis.right)
-        path_sum += xylis.r_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr:
-            TLFT.append(KMP)
-            KMP= []
-            choices.append(path_sum)
-            path_sum = 0
-            
-        #node
-        if debug:
-            
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''---------------------------------------'''
-        KMP.append(xylis.down)
-        path_sum+= xylis.d_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-            
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-        KMP.append(source_ltr)
-        path_sum+= xylis.d_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-        KMP.append(xylis.down)
-        path_sum+= xylis.d_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-        KMP.append(xylis.right)
-        path_sum+= xylis.r_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-
         return min(choices)
 
 def DVC(self,src , dest, path_mem, len_mem, KMF, len_product ):
@@ -429,7 +344,7 @@ def table(table,a,b,c,d,e):
         print("     /")
         print("     /")
 
-
+debug = False
 global DVA_table
 DVA_table= SuperMap(5)
 u = digit()
@@ -454,5 +369,5 @@ print(DVA_table)
 
 
 
-print(str(DVB('u','v')))
+print(str(DVB('u','v',['u'])))
 #table(DVB_table,'u','v','x','y','z')
