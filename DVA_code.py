@@ -1,5 +1,6 @@
-'''ran into class copying properties, trying to find different ways
-of adding while preserving the identity
+'''trouble was in the find method for supermap and where I placed
+printed debug statements, seems not to know how to get to dest_node
+when it has to pass through 2 or more nodes
 '''
 
 
@@ -40,17 +41,18 @@ class digit():
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
 def DVA(source_ltr,dest_ltr):
-
-        time.sleep(2)
-        print(source_ltr,dest_ltr)
+        if debug:
+            print(source_ltr,dest_ltr)
+        answer = input()
+        
 
         if source_ltr == None:
                 print('stop here')
                 return 0
             
-        elif source_ltr == dest_ltr:
-                print('ima crasshhhh!!!')
-                return 0 
+        if source_ltr == dest_ltr:
+                print('got out there!!!')
+                return 0
 
 
         
@@ -59,47 +61,54 @@ def DVA(source_ltr,dest_ltr):
         yellow = 9999
         green = 9999
         xylis= ''
-        print("i cant seem to get out of here")
-        if source_ltr != dest_ltr:
-            xylis= DVA_table.find([source_ltr])
-            print(source_ltr)
-        elif xylis == '':return
+        
+        
+        xylis= DVA_table.find(source_ltr)
+        print('this is the first xylis')
+        print(source_ltr,   xylis)
+        
         
         if xylis.l_value != 0:
                 if xylis.left != dest_ltr:
-                    blue =xylis.l_value + DVA(xylis.left,dest_ltr)
                     print('going inside blue')
+                    blue =xylis.l_value + DVA(xylis.left,dest_ltr)
+                    
                 print('im in blue')
                 if debug == True:
                     print(blue)
-                    
+                    print((xylis.left), (dest_ltr))
         if xylis.r_value != 0:
                 if xylis.right != dest_ltr:
-                    red = xylis.r_value + (xylis.right,dest_ltr)
-                    print('going inside')
+                    print('going inside red')
+                    red = xylis.r_value + DVA(xylis.right,dest_ltr)
                 print('im in red')
-                
                 if debug == True:
                     print('this is right')
-                    
                     print((xylis.right), (dest_ltr))
                 print('getting out of red')
+        if debug:       
+            print('now im here')
+            
         if xylis.u_value != 0:
                 if xylis.up != dest_ltr:
-                    yellow =xylis.u_value + DVA(xylis.up,dest_ltr)
                     print('going inside yellow')
+                    yellow =xylis.u_value + DVA(xylis.up,dest_ltr)
                 print('im in yellow')
                 if debug == True:
                     print(yellow)
-                    
+                    print((xylis.up), (dest_ltr))
+        if debug:
+            print('now im here')
+                       
         if xylis.d_value != 0:
                 if xylis.down != dest_ltr:
-                    green =xylis.d_value + DVA(xylis.down,dest_ltr)
                     print('going inside green')
+                    green =xylis.d_value + DVA(xylis.down,dest_ltr)   
                 print('im in green')
                 if debug == True:
                     print(green)
-                    
+                    print((xylis.down), (dest_ltr))
+        print("i cant seem to get out of here")
                     
         if debug == True:
             print('here is the minimun value')
@@ -138,7 +147,8 @@ def table(table,a,b,c,d,e):
 
 
 debug = False
-DVA_table = SuperMap(5)
+global DVA_table
+DVA_table= SuperMap(5)
 u = digit()
 v = digit()
 x = digit()
@@ -159,7 +169,7 @@ DVA_table['z'] = z
 
 print(DVA_table)
 
-print(DVA_table.find('x'))
+print(DVA_table.find('v'))
 
 
 
