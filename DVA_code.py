@@ -1,5 +1,4 @@
-'''used recursion to let dvb know the variables it cannot go
-back to as I recurse
+'''seems to be adding one step ahead of and adds prev lengths to its choices
 '''
 
 
@@ -52,6 +51,7 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
     print(source_ltr, dest_ltr,KMP)
     
     if source_ltr == dest_ltr:
+        print('equal')
         return 0
     else:
         KTLR = [] #memory of neighbors
@@ -65,6 +65,7 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
         if xylis.left != None:
             print('left\n')
             print('xylis('+ xylis.left +')')
+            
             print(xylis.left)
             if xylis.left not in KMP:
                 KTLR.append(xylis.left)
@@ -73,8 +74,8 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print(KTLR)
                 path_sum += xylis.l_value + DVB(KTLR[-1],dest_ltr,KMP)
                 print('left\n')
-                print('path_sum from' + source_ltr+ 'to' + KTLR[-1])
-                print(path_sum, xylis.l_value ,DVB(KTLR[-1],dest_ltr,KMP))
+                print('path_sum from  ' + source_ltr+ ' to ' + KTLR[-1])
+                print(path_sum, xylis.l_value ,path_sum-xylis.l_value )
                 choices.append(path_sum)
                 print('left\n')
                 print('choices')
@@ -90,8 +91,8 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print(KTLR)
                 path_sum += xylis.r_value + DVB(KTLR[-1],dest_ltr,KMP)
                 print('right\n')
-                print('path_sum from' + source_ltr+ 'to' + KTLR[-1])
-                print(path_sum, xylis.r_value , DVB(KTLR[-1],dest_ltr,KMP))
+                print('path_sum from ' + source_ltr+ ' to ' + KTLR[-1])
+                print(path_sum, xylis.r_value , path_sum - xylis.r_value)
                 choices.append(path_sum)
                 print('right\n')
                 print('choices')
@@ -107,8 +108,8 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print(KTLR)
                 path_sum += xylis.u_value + DVB(KTLR[-1],dest_ltr,KMP)
                 print('up\n')
-                print('path_sum from' + source_ltr  + 'to' +   KTLR[-1])
-                print(path_sum, xylis.u_value , DVB(KTLR[-1],dest_ltr,KMP))
+                print('path_sum from ' + source_ltr  + ' to ' +   KTLR[-1])
+                print(path_sum, xylis.u_value ,path_sum-  xylis.u_value)
                 choices.append(path_sum)
                 print('up\n')
                 print('choices')
@@ -124,8 +125,8 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print(KTLR)
                 path_sum += xylis.d_value + DVB(KTLR[-1],dest_ltr,KMP)
                 print('down\n')
-                print('path_sum from' + source_ltr+ 'to' + KTLR[-1])
-                print(path_sum, xylis.d_value , DVB(KTLR[-1],dest_ltr,KMP))
+                print('path_sum from ' + source_ltr+ ' to ' + KTLR[-1])
+                print(path_sum, xylis.d_value , path_sum -xylis.d_value)
                 choices.append(path_sum)
                 print('down\n')
                 print('choices')
@@ -486,14 +487,11 @@ v = digit()
 x = digit()
 y = digit()
 z = digit()
-
-
 u.add(None,'v',None,'y',0,1,0,2)
 v.add('u','z',None,'x',1,6,0,3)
 x.add('y','z','v',None,3,2,3,0)
 y.add(None,'x','u',None,0,3,2,0)
 z.add('x',None,'v',None,2,0,6,0)
-
 
 DVA_table['u'] = u
 DVA_table['v'] = v
@@ -506,5 +504,5 @@ print(DVA_table)
 
 
 
-print(str(DVB('u','v')))
+print(str(DVB('u','z')))
 #table(DVB_table,'u','v','x','y','z')
