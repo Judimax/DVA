@@ -1,10 +1,12 @@
-'''tiny addition to add method to make sure now user_inputs inquries appear making user_interface program soon'''
+'''redid table method to accomodate for any amount nodes also included extra quicksort method in supermap'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
 import time
 global debug
 debug = True
+global debug_table
+debug_table = True
 global snap_this
 snap_this = ''
 class digit():
@@ -161,58 +163,91 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
         return min(choices)
         
 
-def table(table,a,b,c,d,e):
+def table(network):
+
+    table = "%15s" % "/   "
+    values = network.getKeys()
+    
+    if debug_table:
+        print(values)
+    #width = ""
+    #length = ""
+    for i in values:
+        table +=   "%-5s" % i
+        table +=   "%-5s" % "/"  
+    for i in values:
+        t = 0
+        while t != 3:
+            if t ==2:
+                table += "%6s" % i
+                table += "%6s" % "/"
+                table += "%-5s" % "/"  
+                for j in values:
+                    table += "%-5s" % str(DVB(j,i))
+                    table += "%-5s" % "/"  
+                table += "\n"
+            else:
+                table += "%12s" % "/"
+                table += "\n"
+            
+            t += 1
+        
+    print(table)
+    return
+            
+    
 
 
-        print("     /   u    /    v    /    x    /    y    /    z")
-        print("     /")
-        print("  u  /__"+str(DVB(a,a))+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,e))+"_________________")
-        print("     /")
-        print("     /")
-        print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"_____"+str(DVB(b,c))+"____"+str(DVB(b,d))+"_______"+str(DVB(b,e))+"_________________")
-        print("     /")
-        print("     /")
-        print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,e))+"________________")
-        print("     /")
-        print("     /")
-        print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
-        print("     /")
-        print("     /")
-        print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
-        print("     /")
-        print("     /")
-        print("     /")
-        print("     /")
+    print("     /   u    /    v    /    x    /    y    /    z")
+    print("     /")
+    print("  u  /__"+str(DVB(a,a))+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,e))+"_________________")
+    print("     /")
+    print("     /")
+    print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"_____"+str(DVB(b,c))+"____"+str(DVB(b,d))+"_______"+str(DVB(b,e))+"_________________")
+    print("     /")
+    print("     /")
+    print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,e))+"________________")
+    print("     /")
+    print("     /")
+    print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
+    print("     /")
+    print("     /")
+    print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
+    print("     /")
+    print("     /")
+    print("     /")
+    print("     /")
 
-debug = False
+if __name__ == "__main__":
+    debug = False
 
-global DVA_table
-DVA_table= SuperMap(5)
-u = digit('u')
-v = digit('v')
-x = digit('x')
-y = digit('y')
-z = digit('z')
-'''g = digit('g')
-g.add(['q','g'],[7,5],True)
-print(g)'''
-u.add(['v','y'],[1,2])
-v.add(['u','z','x'],[1,6,3])
-x.add(['y','z','v'],[3,2,3])
-y.add(['x','u'],[3,2])
-z.add(['x','v'],[2,6])
-
-
-
-DVA_table['u'] = u
-DVA_table['v'] = v
-DVA_table['x'] = x
-DVA_table['y'] = y
-DVA_table['z'] = z
+    global DVA_table
+    DVA_table= SuperMap(5)
+    u = digit('u')
+    v = digit('v')
+    x = digit('x')
+    y = digit('y')
+    z = digit('z')
+    '''g = digit('g')
+    g.add(['q','g'],[7,5],True)
+    print(g)'''
+    u.add(['v','y'],[1,2])
+    v.add(['u','z','x'],[1,6,3])
+    x.add(['y','z','v'],[3,2,3])
+    y.add(['x','u'],[3,2])
+    z.add(['x','v'],[2,6])
 
 
-print(DVA_table)
 
-#print(u.valt('right'))
-#print(str(DVB('v','z')))
-table(DVA_table,'u','v','x','y','z')
+    DVA_table['v'] = v
+    DVA_table['u'] = u
+    DVA_table['x'] = x
+    DVA_table['y'] = y
+    DVA_table['z'] = z
+
+
+    #print(DVA_table)
+    #print(DVA_table.getKeys())
+    #print(u.valt('right'))
+    #print(str(DVB('v','z')))
+    table(DVA_table)
