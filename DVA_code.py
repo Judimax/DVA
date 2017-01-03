@@ -1,4 +1,4 @@
-'''finally got it to work using this implementation'''
+'''seems go back path if node wasnt covered'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -58,20 +58,23 @@ class digit():
         return self
         
 
-def DVB(source_ltr, dest_ltr,KM_P = []):
-    
-    print('source_ltr, dest_ltr,KM_P')
-    print(source_ltr, dest_ltr,KM_P)
+def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
+
+    if debug:
+        print('source_ltr, dest_ltr,KM_P')
+        print(source_ltr, dest_ltr,KM_P)
     KMP = [] #keep moving foward
     KMP += KM_P
     KMP.append(source_ltr)
-    print('after we append KM_P')
-    print('source_ltr, dest_ltr,KMP')
-    print(source_ltr, dest_ltr,KMP)
+    if debug:
+        print('after we append KM_P')
+        print('source_ltr, dest_ltr,KMP')
+        print(source_ltr, dest_ltr,KMP)
     
     if source_ltr == dest_ltr:
         my_dest =0
-        print('equal',my_dest)
+        if debug:
+            print('equal',my_dest)
         return my_dest
     
     else:
@@ -81,35 +84,44 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
         path_sum = 0 #gets the sum
         
         xylis= DVA_table.find(source_ltr)
-        print('KTLR,TLFT,choices,path_sum\n,xylis('+ source_ltr +')')
-        print(KTLR,TLFT,choices,path_sum,xylis)
+        if debug:
+            print('KTLR,TLFT,choices,path_sum\n,xylis('+ source_ltr +')')
+            print(KTLR,TLFT,choices,path_sum,xylis)
         i = 0
         for i in xylis.innerlist:
             if i[0][1] != None:
-                print('===========')
-                print(i[0][0])
-                print(i[0][1])
-                 
-                print('in xylis('+ source_ltr+')')
-                print('\n')
+                if debug:
+                    print('===========')
+                    print(i[0][0])
+                    print(i[0][1])
+                     
+                    print('in xylis('+ source_ltr+')')
+                    print('\n')
                 
                 if i[0][1] not in KMP:
-                    KTLR.append(i[0][1])
-                    print(i)
-                    print('KTLR')
-                    print(KTLR)
-                    print('\n')
-                    path_sum += i[1][1] + DVB(KTLR[-1],dest_ltr,KMP)
-                    print('in source_ltr    ' + source_ltr)
-                    print('\n')
-                    print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
-                    print(path_sum, i[1][1],path_sum-i[1][1])
-                    choices.append(path_sum)
-                    path_sum = 0 
-                    print(i)
-                    print('choices')
-                    print(choices)
-                    print('\n')
+                    if i[0][1] not in KTLR:
+                        if debug:
+                            print(KTLR)
+                        KTLR.append(i[0][1])
+                        if debug:
+                            print(KTLR)
+                            print(i)
+                            print('KTLR')
+                            print(KTLR)
+                            print('\n')
+                        path_sum += i[1][1] + DVB(KTLR[-1],dest_ltr,KTLR,KMP)
+                        if debug:
+                            print('in source_ltr    ' + source_ltr)
+                            print('\n')
+                            print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
+                            print(path_sum, i[1][1],path_sum-i[1][1])
+                        choices.append(path_sum)
+                        path_sum = 0
+                        if debug:
+                            print(i)
+                            print('choices')
+                            print(choices)
+                            print('\n')
         
         #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
         print('here are you choices and here is the shortest neighbor')
@@ -441,19 +453,19 @@ def table(table,a,b,c,d,e):
 
         print("     /   u    /    v    /    x    /    y    /    z")
         print("     /")
-        print("  u  /__"+str(DVB(a,a))[1]+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,e))+"_________________")
+        print("  u  /__"+str(DVB(a,a))+"__\n___"+str(DVB(a,b))+"___\n___"+str(DVB(a,c))+"_\n___"+str(DVB(a,d))+"____\n____"+str(DVB(a,e))+"________\n_________")
         print("     /")
         print("     /")
-        #print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"______"+str(DVB(b,c))+"____"+str(DVB(b,d))+"________"+str(DVB(b,e))+"_________________")
+        print("  v  /__"+str(DVB(b,a))+"__\n___"+str(DVB(b,b))+"___\n___"+str(DVB(b,c))+"_\n___"+str(DVB(b,d))+"___\n_____"+str(DVB(b,e))+"_____\n____________")
         print("     /")
         print("     /")
-        #print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,e))+"_________________")
+        print("  x  /__"+str(DVB(c,a))+"__\n___"+str(DVB(c,b))+"__\n____"+str(DVB(c,c))+"__\n__"+str(DVB(c,d))+"___\n_____"+str(DVB(c,e))+"______\n___________")
         print("     /")
         print("     /")
-        #print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
+        print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
         print("     /")
         print("     /")
-        #print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
+        print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
         print("     /")
         print("     /")
         print("     /")
@@ -485,5 +497,5 @@ DVA_table['z'] = z
 #print(DVA_table)
 
 #print(u.valt('right'))
-print(str(DVB('u','v')))
-#table(DVB_table,'u','v','x','y','z')
+print(str(DVB('u','y')))
+#table(DVA_table,'u','v','x','y','z')
