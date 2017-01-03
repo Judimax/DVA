@@ -1,4 +1,4 @@
-'''used method so python can see as one object neighbor not an object and a string'''
+'''used a dictionary hold all information about the objects neighbors'''
 
 
 from Distance_vect import *
@@ -13,44 +13,30 @@ class digit():
             
     def __init__(self):
     
-
-        self.left= ''
-        self.right = ''
-        self.up = ''
-        self.down = ''
-        self.l_value = 0
-        self.r_value = 0
-        self.u_value = 0
-        self.d_value =0
-        self.innerdict = {}
+        self.innerdict = {} #hold all information about the objects neighbors
         
     def add(self,left,right,up,down,l,r,u,d):
 
+        self.innerdict = {'left':left,'right':right,'up':up,'down':down,'l_value':l,'r_value':r,'u_value':u,'d_value':d}
         
-        self.left = left
-        self.right = right
-        self.up = up
-        self.down = down
-        self.l_value= l
-        self.r_value = r
-        self.u_value = u
-        self.d_value = d
 
     def __str__(self):
-
-        return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
+        
+        for keys,values in self.innerdict
+        return str(self.innerdict) + '\n'
     
-    def tval (self,value = ''):
-        for i in self.innerlist:
-            print(i)
+    def valt (self,value = ''):
+        for i in self.innerdict.keys():
             if value == i:
                 return i
             
+    def __iter__(self):
+        self.__i__= 0
+        return self
         
 
-def DVB(source_ltr, dest_ltr,KM_P = [],hands = {'left':'l_value','right':'r_value','up':'u_value','down':'d_value'}):
+def DVB(source_ltr, dest_ltr,KM_P = []):
     
-    print('hands-----\n',hands,type(hands))
     print('source_ltr, dest_ltr,KM_P')
     print(source_ltr, dest_ltr,KM_P)
     KMP = [] #keep moving foward
@@ -61,9 +47,9 @@ def DVB(source_ltr, dest_ltr,KM_P = [],hands = {'left':'l_value','right':'r_valu
     print(source_ltr, dest_ltr,KMP)
     
     if source_ltr == dest_ltr:
-        vald =0
-        print('equal',vald)
-        return vald
+        my_dest =0
+        print('equal',my_dest)
+        return my_dest
     
     else:
         KTLR = [] #memory of neighbors
@@ -75,11 +61,10 @@ def DVB(source_ltr, dest_ltr,KM_P = [],hands = {'left':'l_value','right':'r_valu
         print('KTLR,TLFT,choices,path_sum,xylis('+ source_ltr +')')
         print(KTLR,TLFT,choices,path_sum,xylis)
         for i in hands:
-            jalis = 'xylis.' + i
-            print(type(jalis))
-            if xylis.i == None:
+            
+            if xylis.tval(i) == None:
                 print(i)
-                print('xylis('+ xylis.i +')')
+                print('xylis('+ xylis.tval(i) +')')
                 print(xylis.i)
                 print('\n')
                 
@@ -473,9 +458,10 @@ DVA_table['x'] = x
 
 
 print(DVA_table)
-print(u.tval('right'))
+
+print(u.valt('right'))
 
 
 
-#print(str(DVB('u','x')))
+print(str(DVB('u','x')))
 #table(DVB_table,'u','v','x','y','z')
