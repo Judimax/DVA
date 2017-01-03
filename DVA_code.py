@@ -1,4 +1,4 @@
-'''solves paths who go back to the destination or end up in  a dead end'''
+'''got it in 35 steps'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -95,15 +95,20 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
                     print('===========')
                     print(i[0][0])
                     print(i[0][1])
+                    print(KMP)
                     print(KTLR)
                     print('in xylis('+ source_ltr+')')
                     print('\n')
                 
                 if i[0][1] not in KMP:
-                    if i[0][1] not in KTL_R:
-                        
+                    if debug:
+                        print('not in KMP')
+                        print(KTL_R)
+                    if i[0][1] not in KTL_R or i[0][1] not in KTLR :
                         if debug:
+                            print('Not in KTL_R lets go')
                             print(KTLR)
+                        
                         KTLR.append(i[0][1])
                         if debug:
 
@@ -111,15 +116,14 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
                             print('KTLR')
                             print(KTLR)
                             print('\n')
-                        
-                        if DVB(KTLR[-1],dest_ltr,KTLR,KMP) == str:
-                            return
-                        else:
+                        try:
                             path_sum += i[1][1] + DVB(KTLR[-1],dest_ltr,KTLR,KMP)
+                        
                             if debug:
                                 print('in source_ltr    ' + source_ltr)
                                 print('\n')
                                 print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
+                                print(i[1][0])
                                 print(path_sum, i[1][1],path_sum-i[1][1])
                             choices.append(path_sum)
                             path_sum = 0
@@ -128,334 +132,21 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
                                 print('choices')
                                 print(choices)
                                 print('\n')
+            
+                        except:
+                            pass
+                            
+                        
         
         #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
         if len(choices) == 0:
-            print('this path goes nowhere')
-            return 99999999999999999999999999
+            if debug:
+                print('this path goes nowhere')
+            return 'this path goes nowhere'
         if debug:
             print('here are you choices and here is the shortest neighbor')
             print(choices,min(choices))
         return min(choices)
-        
-
-        
-        '''--------------------code to loop on'''
-        KMP.append(source_ltr) #knows not to go back
-        path_sum += 0 
-        xylis= DVA_table.find(source_ltr) #activates the string as a xylis
-        #node
-        if KMP[-1] == dest_ltr:
-            TLFT.append(KMP)
-            KMP= []
-            choices.append(path_sum)
-            path_sum = 0
-        if debug:
-            
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''--------------------------- code to loop on'''
-        KMP.append(xylis.right)
-        path_sum += xylis.r_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr:
-            TLFT.append(KMP)
-            KMP= []
-            choices.append(path_sum)
-            path_sum = 0
-            
-        #node
-        if debug:
-            
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''---------------------------------------'''
-        KMP.append(xylis.down)
-        path_sum+= xylis.d_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-            
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-        KMP.append(source_ltr)
-        path_sum+= xylis.d_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-        KMP.append(xylis.down)
-        path_sum+= xylis.d_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-        KMP.append(xylis.right)
-        path_sum+= xylis.r_value
-        xylis = DVA_table.find(KMP[-1])
-        if KMP[-1] == dest_ltr: 
-            TLFT.append(KMP)
-            KMP = []
-            choices.append(path_sum)
-            path_sum = 0
-        #node
-        if debug:
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''-----------------------------------------'''
-
-        return min(choices)
-
-def DVC(self,src , dest, path_mem, len_mem, KMF, len_product ):
-        '''--------------------code to loop on'''
-        KMP.append(source_ltr) #knows not to go back
-        path_sum += 0 
-        xylis= DVA_table.find(source_ltr) #activates the string as a xylis
-        #node
-        if KMP[-1] == dest_ltr:
-            TLFT.append(KMP)
-            KMP= []
-            choices.append(path_sum)
-            path_sum = 0
-            return 
-        if debug:
-            
-            print(xylis)
-            print(path_sum)
-            print(TLFT)
-            print(KMP)
-            
-        '''--------------------------- code to loop on'''
-    
-        
-    
-def DVA(source_ltr,dest_ltr):
-        answer = input()
-        global snap_this
-        if snap_this == dest_ltr:
-            print('starting to break')
-            taggle = []
-            taggle.append(0)
-            taggle.append(snap_this)
-            return taggle
-        else:
-            tarmnet= []
-            tarmnet.append(0)
-            tarmnet.append(source_ltr)
-
-            if debug:
-                print('I choose recursion')
-                print('Face down')
-                print('End turn')
-                print(source_ltr,dest_ltr)
-                
-            
-
-            if source_ltr == None:
-                    print('stop here')
-                    return tarmnet[0]
-                
-            if source_ltr == dest_ltr:
-                    print('got out in the else statement!!!')
-                    return tarmnet
-
-
-            
-            blue = 9999
-            red = 9999
-            yellow = 9999
-            green = 9999
-            xylis= ''
-            
-            
-            xylis= DVA_table.find(source_ltr)
-            print('this is the first xylis')
-            print(source_ltr,   xylis)
-            
-            if debug:
-                print('im in blue')
-                
-            if xylis.left == dest_ltr:
-                    
-                        print('going inside blue')
-                        snap_this = xylis.left
-                        if debug:
-                            print(snap_this)
-                        blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
-                        if debug == True:
-                            print('this is left')
-                            print((xylis.left), (dest_ltr))
-                        print('getting out of blue')
-                    
-            if debug:
-                print('im in red')
-                
-            if xylis.right == dest_ltr:
-                        print('going inside red to get a value')
-                        snap_this = xylis.right
-                        if debug:
-                            print(snap_this)
-                        red = xylis.r_value + DVA(xylis.right,dest_ltr)[0]
-                        if debug == True:
-                            print('this is right')
-                            print((xylis.right), (dest_ltr))
-                        print('getting out of red')
-            if debug:       
-                print('im in yellow')
-                
-            if  xylis.up == dest_ltr:
-                    print('going inside yellow to get a valuue')
-                    snap_this = xylis.up
-                    if debug:
-                        print(snap_this)
-                    yellow =xylis.u_value + DVA(xylis.up,dest_ltr)[0]
-                    if debug == True:
-                        print('this is up')
-                        print((xylis.up), (dest_ltr))
-                    print('getting out of yellow')
-            if debug:
-                print('im in green')
-                
-            if  xylis.down == dest_ltr:
-                        
-                        print('going inside green to get a value')
-                        snap_this = xylis.down
-                        if debug:
-                            print(snap_this)
-                        green =xylis.d_value + DVA(xylis.down,dest_ltr)[0]
-                        if debug == True:
-                            print('this is down')
-                            print((xylis.down), (dest_ltr))
-                        print('getting out of green')
-                        
-
-
-            
-                        
-            else:
-
-                if debug:
-                    print('now looking for destination')
-                    time.sleep(2)
-                    print('now im going to blue')
-                            
-                if xylis.l_value != 0:
-                        if xylis.left != dest_ltr:
-                            print('going inside blue to get a value')
-                            snap_this = xylis.left
-                            KTLR.append(i[0][1])
-                            if debug:
-                                print(snap_this)
-                            blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
-                        print('im in blue')
-                        if debug == True:
-                            print(blue)
-                            print((xylis.left), (dest_ltr))
-                if debug:       
-                    print('now im going to red')
-                    
-                if xylis.r_value != 0:
-                        if xylis.right != dest_ltr:
-                            print('going inside red to get a value')
-                            snap_this = xylis.right
-                            if debug:
-                                print(snap_this)
-                            red = xylis.r_value + DVA(xylis.right,dest_ltr)[0]
-                        print('im in red')
-                        if debug == True:
-                            print('this is right')
-                            print((xylis.right), (dest_ltr))
-                        print('getting out of red')
-                if debug:       
-                    print('now im going to yellow')
-                    
-                if xylis.u_value != 0:
-                        if xylis.up != dest_ltr:
-                            print('going inside yellow to get a value')
-                            snap_this = xylis.up
-                            if debug:
-                                print(snap_this)
-                            yellow =xylis.u_value + DVA(xylis.up,dest_ltr)[0]
-                        print('im in yellow')
-                        if debug == True:
-                            print('this is up')
-                            print((xylis.up), (dest_ltr))
-                        print('get getting out of yellow')
-                if debug:
-                    print('now im going to green')
-                               
-                if xylis.d_value != 0:
-                        if xylis.down != dest_ltr:
-                            print('going inside green to get a value')
-                            snap_this = xylis.down
-                            if debug:
-                                print(snap_this)
-                            green =xylis.d_value + DVA(xylis.down,dest_ltr)[0]
-                        print('im in green')
-                        if debug == True:
-                            print('this is down')
-                            print((xylis.down), (dest_ltr))
-            
-                
-            if debug:
-                print("if the letter here is not matching up with the dest something doesn't know something")
-                print(snap_this)    
-                print("got out thoo :)")
-                        
-            if debug == True:
-                print('here is the minimun value')
-                print(min(blue,red,yellow,green))
-            tarmnet = []
-            tarmnet.append(min(blue,red,yellow,green))
-            if debug:
-                print(tarmnet)
-            tarmnet.append(source_ltr)
-            if debug:
-                print(tarmnet)
-            return tarmnet
-
-                
-
-
-    
         
 
 def table(table,a,b,c,d,e):
@@ -463,16 +154,16 @@ def table(table,a,b,c,d,e):
 
         print("     /   u    /    v    /    x    /    y    /    z")
         print("     /")
-        print("  u  /__"+str(DVB(a,a))+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,a))+"_________________")
+        print("  u  /__"+str(DVB(a,a))+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,e))+"_________________")
         print("     /")
         print("     /")
-        print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"_____"+str(DVB(b,c))+"____"+str(DVB(b,d))+"_______"+str(DVB(b,a))+"_________________")
+        print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"_____"+str(DVB(b,c))+"____"+str(DVB(b,d))+"_______"+str(DVB(b,e))+"_________________")
         print("     /")
         print("     /")
-        print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,a))+"________________")
+        print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,e))+"________________")
         print("     /")
         print("     /")
-        print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,a))+"_________________")
+        print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
         print("     /")
         print("     /")
         print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
@@ -508,5 +199,5 @@ DVA_table['z'] = z
 #print(DVA_table)
 
 #print(u.valt('right'))
-print(str(DVB('y','z')))
-#table(DVA_table,'u','v','x','y','z')
+#print(str(DVB('v','z')))
+table(DVA_table,'u','v','x','y','z')
