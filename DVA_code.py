@@ -1,4 +1,4 @@
-'''DVB object uses anthropomorphic concepts to find the shortest path, starts to get anthropormorphic past the neighbor level
+'''trying to let dvb know how to count path from original considering recursion
 '''
 
 
@@ -45,49 +45,163 @@ def DVB(source_ltr, dest_ltr):
     if source_ltr == dest_ltr:
         return 0
     else:
+        KLTR = [] #memory of neighbors
+        TLFT = [] #memory of paths
+        choices = [] #memory of lengths
         KMP = [] #keep moving foward
+        path_sum = 0 #gets the sum
+
+        xylis= DVA_table.find(source_ltr)
+        if xylis.left != None:
+            KLTR.append(xylis.left)
+            
+            #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
+        if xylis.right != None:
+            KLTR.append(xylis.right)
+            
+        if xylis.up != None:
+            KLTR.append(xylis.up)
+            
+        if xylis.down != None:
+            KLTR.append(xylis.down)
+
+        if debug:
+            print(KLTR)
+
+        #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
+        for neigh in KLTR:
+            KMP.append(neigh)
+            path_sum +=
+            xylis = DVA_table.find(neigh) # we begin
+        return
+        
+
+        
         '''--------------------code to loop on'''
         KMP.append(source_ltr) #knows not to go back
-        path_sum = 0 #gets the sum
+        path_sum += 0 
         xylis= DVA_table.find(source_ltr) #activates the string as a xylis
         #node
+        if KMP[-1] == dest_ltr:
+            TLFT.append(KMP)
+            KMP= []
+            choices.append(path_sum)
+            path_sum = 0
         if debug:
-            print(KMP[-1])
-            print(KMP)
+            
             print(xylis)
             print(path_sum)
+            print(TLFT)
+            print(KMP)
+            
         '''--------------------------- code to loop on'''
         KMP.append(xylis.right)
         path_sum += xylis.r_value
-        if KMP[-1] == dest_ltr: 
-            
-
         xylis = DVA_table.find(KMP[-1])
-        
+        if KMP[-1] == dest_ltr:
+            TLFT.append(KMP)
+            KMP= []
+            choices.append(path_sum)
+            path_sum = 0
+            
         #node
         if debug:
-            print(KMP[-1])
-            print(KMP)
+            
             print(xylis)
             print(path_sum)
+            print(TLFT)
+            print(KMP)
+            
         '''---------------------------------------'''
         KMP.append(xylis.down)
         path_sum+= xylis.d_value
-        if KMP[-1] == dest_ltr: 
-            
-
         xylis = DVA_table.find(KMP[-1])
+        if KMP[-1] == dest_ltr: 
+            TLFT.append(KMP)
+            KMP = []
+            choices.append(path_sum)
+            path_sum = 0
+            
         #node
         if debug:
-            print(KMP[-1])
-            print(KMP)
             print(xylis)
             print(path_sum)
-        '''-----------------------------------------'''
+            print(TLFT)
+            print(KMP)
             
+        '''-----------------------------------------'''
+        KMP.append(source_ltr)
+        path_sum+= xylis.d_value
+        xylis = DVA_table.find(KMP[-1])
+        if KMP[-1] == dest_ltr: 
+            TLFT.append(KMP)
+            KMP = []
+            choices.append(path_sum)
+            path_sum = 0
+        #node
+        if debug:
+            print(xylis)
+            print(path_sum)
+            print(TLFT)
+            print(KMP)
+            
+        '''-----------------------------------------'''
+        KMP.append(xylis.down)
+        path_sum+= xylis.d_value
+        xylis = DVA_table.find(KMP[-1])
+        if KMP[-1] == dest_ltr: 
+            TLFT.append(KMP)
+            KMP = []
+            choices.append(path_sum)
+            path_sum = 0
+        #node
+        if debug:
+            print(xylis)
+            print(path_sum)
+            print(TLFT)
+            print(KMP)
+            
+        '''-----------------------------------------'''
+        KMP.append(xylis.right)
+        path_sum+= xylis.r_value
+        xylis = DVA_table.find(KMP[-1])
+        if KMP[-1] == dest_ltr: 
+            TLFT.append(KMP)
+            KMP = []
+            choices.append(path_sum)
+            path_sum = 0
+        #node
+        if debug:
+            print(xylis)
+            print(path_sum)
+            print(TLFT)
+            print(KMP)
+            
+        '''-----------------------------------------'''
+
+        return min(choices)
+
+def DVC(self,src , dest, path_mem, len_mem, KMF, len_product ):
+        '''--------------------code to loop on'''
+        KMP.append(source_ltr) #knows not to go back
+        path_sum += 0 
+        xylis= DVA_table.find(source_ltr) #activates the string as a xylis
+        #node
+        if KMP[-1] == dest_ltr:
+            TLFT.append(KMP)
+            KMP= []
+            choices.append(path_sum)
+            path_sum = 0
+            return 
+        if debug:
+            
+            print(xylis)
+            print(path_sum)
+            print(TLFT)
+            print(KMP)
+            
+        '''--------------------------- code to loop on'''
     
-        
-        
         
     
 def DVA(source_ltr,dest_ltr):
@@ -303,7 +417,7 @@ def table(table,a,b,c,d,e):
         print("     /")
         print("     /")
 
-debug = False
+
 global DVA_table
 DVA_table= SuperMap(5)
 u = digit()
