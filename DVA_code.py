@@ -1,5 +1,5 @@
-'''Got algorithm to return, but many bugs have to be found
-in how it does recursion and what it return and where it returns
+'''Table starting to return proper values, and only value required for
+table
 '''
 
 
@@ -43,6 +43,7 @@ class digit():
 
 
 def DVA(source_ltr,dest_ltr):
+
         global snap_this
         if snap_this == dest_ltr:
             print('starting to break')
@@ -60,7 +61,7 @@ def DVA(source_ltr,dest_ltr):
                 print('Face down')
                 print('End turn')
                 print(source_ltr,dest_ltr)
-                answer = input()
+                
             
 
             if source_ltr == None:
@@ -89,8 +90,8 @@ def DVA(source_ltr,dest_ltr):
             if xylis.left == dest_ltr:
                     
                         print('going inside blue')
+                        snap_this = xylis.left
                         blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
-                        snap_this = DVA(xylis.left,dest_ltr)[1]
                         if debug == True:
                             print('this is left')
                             print((xylis.left), (dest_ltr))
@@ -100,8 +101,8 @@ def DVA(source_ltr,dest_ltr):
                 print('im in red')
             if xylis.right == dest_ltr:
                         print('going inside red to get a value')
+                        snap_this = xylis.right
                         red = xylis.r_value + DVA(xylis.right,dest_ltr)[0]
-                        snap_this = DVA(xylis.right,dest_ltr)[1] 
                         if debug == True:
                             print('this is right')
                             print((xylis.right), (dest_ltr))
@@ -111,8 +112,8 @@ def DVA(source_ltr,dest_ltr):
                 
             if  xylis.up == dest_ltr:
                     print('going inside yellow to get a valuue')
+                    snap_this = xylis.up
                     yellow =xylis.u_value + DVA(xylis.up,dest_ltr)[0]
-                    snap_this = DVA(xylis.up,dest_ltr)[1]
                     if debug == True:
                         print('this is up')
                         print((xylis.up), (dest_ltr))
@@ -122,17 +123,18 @@ def DVA(source_ltr,dest_ltr):
             if  xylis.down == dest_ltr:
                         
                         print('going inside green to get a value')
+                        snap_this = xylis.down
+                        print(snap_this)
                         green =xylis.d_value + DVA(xylis.down,dest_ltr)[0]
-                        snap_this = DVA(xylis.down,dest_ltr)[1]
                         if debug == True:
                             print('this is down')
                             print((xylis.down), (dest_ltr))
                         print('getting out of green')
+                        print("if the letter here is not matching up with the dest something doesn't know something")
+                        print(snap_this)
 
 
-
-            if source_ltr == dest_ltr:
-                    pass
+            
                         
             else:
                 if debug:
@@ -142,8 +144,8 @@ def DVA(source_ltr,dest_ltr):
                 if xylis.l_value != 0:
                         if xylis.left != dest_ltr:
                             print('going inside blue to get a value')
+                            snap_this = xylis.left
                             blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
-                            snap_this = DVA(xylis.left,dest_ltr)[1]
                         print('im in blue')
                         if debug == True:
                             print(blue)
@@ -151,8 +153,10 @@ def DVA(source_ltr,dest_ltr):
                 if xylis.r_value != 0:
                         if xylis.right != dest_ltr:
                             print('going inside red to get a value')
+                            snap_this = xylis.right
+                            if debug:
+                                print(snap_this)
                             red = xylis.r_value + DVA(xylis.right,dest_ltr)[0]
-                            snap_this = DVA(xylis.right,dest_ltr)[1]
                         print('im in red')
                         if debug == True:
                             print('this is right')
@@ -164,8 +168,8 @@ def DVA(source_ltr,dest_ltr):
                 if xylis.u_value != 0:
                         if xylis.up != dest_ltr:
                             print('going inside yellow to get a value')
+                            snap_this = xylis.up
                             yellow =xylis.u_value + DVA(xylis.up,dest_ltr)[0]
-                            snap_this = DVA(xylis.up,dest_ltr)[1]
                         print('im in yellow')
                         if debug == True:
                             print('this is up')
@@ -177,8 +181,8 @@ def DVA(source_ltr,dest_ltr):
                 if xylis.d_value != 0:
                         if xylis.down != dest_ltr:
                             print('going inside green to get a value')
+                            snap_this = xylis.down
                             green =xylis.d_value + DVA(xylis.down,dest_ltr)[0]
-                            snap_this = DVA(xylis.down,dest_ltr)[1]
                         print('im in green')
                         if debug == True:
                             print('this is down')
@@ -192,13 +196,13 @@ def DVA(source_ltr,dest_ltr):
             if debug == True:
                 print('here is the minimun value')
                 print(min(blue,red,yellow,green))
-            tarmet = []
+            tarmnet = []
             tarmnet.append(min(blue,red,yellow,green))
             if debug:
-                print(tarmet)
+                print(tarmnet)
             tarmnet.append(source_ltr)
             if debug:
-                print(tarmet)
+                print(tarmnet)
             snap_this = ''
             return tarmnet
 
@@ -213,25 +217,25 @@ def table(table,a,b,c,d,e):
 
         print("     /   u    /    v    /    x    /    y    /    z")
         print("     /")
-        print("  u  /__"+str(DVA(a,a))+"_____"+str(DVA(a,b))+"______"+str(DVA(a,c))+"____"+str(DVA(a,d))+"________"+str(DVA(a,e))+"_________________")
+        print("  u  /__"+str(DVA(a,a))[1]+"_____"+str(DVA(a,b))+"______"+str(DVA(a,c))+"____"+str(DVA(a,d))+"________"+str(DVA(a,e))+"_________________")
         print("     /")
         print("     /")
-        print("  v  /_____________________________________________")
+        #print("  v  /__"+str(DVA(b,a))+"_____"+str(DVA(b,b))+"______"+str(DVA(b,c))+"____"+str(DVA(b,d))+"________"+str(DVA(b,e))+"_________________")
         print("     /")
         print("     /")
-        print("  x  /_____________________________________________")
+        #print("  x  /__"+str(DVA(c,a))+"_____"+str(DVA(c,b))+"______"+str(DVA(c,c))+"____"+str(DVA(c,d))+"________"+str(DVA(c,e))+"_________________")
         print("     /")
         print("     /")
-        print("  y  /_____________________________________________")
+        #print("  y  /__"+str(DVA(d,a))+"_____"+str(DVA(d,b))+"______"+str(DVA(d,c))+"____"+str(DVA(d,d))+"________"+str(DVA(d,e))+"_________________")
         print("     /")
         print("     /")
-        print("  z  /_____________________________________________")
+        #print("  z  /__"+str(DVA(e,a))+"_____"+str(DVA(e,b))+"______"+str(DVA(e,c))+"____"+str(DVA(e,d))+"________"+str(DVA(e,e))+"_________________")
         print("     /")
         print("     /")
         print("     /")
         print("     /")
 
-
+debug = False
 global DVA_table
 DVA_table= SuperMap(5)
 u = digit()
@@ -254,8 +258,7 @@ DVA_table['z'] = z
 
 print(DVA_table)
 
-print(DVA_table.find('v'))
 
 
-
+print(str(DVA('u','y'))[1])
 table(DVA_table,'u','v','x','y','z')
