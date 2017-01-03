@@ -1,4 +1,5 @@
-'''seems go back path if node wasnt covered'''
+'''try to have algorithm know of its neighbors that its
+previous node went through'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -61,8 +62,8 @@ class digit():
 def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
 
     if debug:
-        print('source_ltr, dest_ltr,KM_P')
-        print(source_ltr, dest_ltr,KM_P)
+        print('source_ltr, dest_ltr,KTL_R,KM_P')
+        print(source_ltr, dest_ltr,KTL_R,KM_P)
     KMP = [] #keep moving foward
     KMP += KM_P
     KMP.append(source_ltr)
@@ -79,6 +80,7 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
     
     else:
         KTLR = [] #memory of neighbors
+        KTLR = KTL_R
         TLFT = [] #memory of paths
         choices = [] #memory of lengths 
         path_sum = 0 #gets the sum
@@ -100,11 +102,12 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
                 
                 if i[0][1] not in KMP:
                     if i[0][1] not in KTLR:
+                        
                         if debug:
                             print(KTLR)
                         KTLR.append(i[0][1])
                         if debug:
-                            print(KTLR)
+
                             print(i)
                             print('KTLR')
                             print(KTLR)
