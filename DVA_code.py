@@ -1,4 +1,4 @@
-'''solves prev neigbor path '''
+'''solves paths who go back to the destination or end up in  a dead end'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -111,23 +111,31 @@ def DVB(source_ltr, dest_ltr,KTL_R=[],KM_P = []):
                             print('KTLR')
                             print(KTLR)
                             print('\n')
-                        path_sum += i[1][1] + DVB(KTLR[-1],dest_ltr,KTLR,KMP)
-                        if debug:
-                            print('in source_ltr    ' + source_ltr)
-                            print('\n')
-                            print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
-                            print(path_sum, i[1][1],path_sum-i[1][1])
-                        choices.append(path_sum)
-                        path_sum = 0
-                        if debug:
-                            print(i)
-                            print('choices')
-                            print(choices)
-                            print('\n')
+                        
+                        if DVB(KTLR[-1],dest_ltr,KTLR,KMP) == str:
+                            return
+                        else:
+                            path_sum += i[1][1] + DVB(KTLR[-1],dest_ltr,KTLR,KMP)
+                            if debug:
+                                print('in source_ltr    ' + source_ltr)
+                                print('\n')
+                                print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
+                                print(path_sum, i[1][1],path_sum-i[1][1])
+                            choices.append(path_sum)
+                            path_sum = 0
+                            if debug:
+                                print(i)
+                                print('choices')
+                                print(choices)
+                                print('\n')
         
         #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
-        print('here are you choices and here is the shortest neighbor')
-        print(choices,min(choices))
+        if len(choices) == 0:
+            print('this path goes nowhere')
+            return 99999999999999999999999999
+        if debug:
+            print('here are you choices and here is the shortest neighbor')
+            print(choices,min(choices))
         return min(choices)
         
 
@@ -455,16 +463,16 @@ def table(table,a,b,c,d,e):
 
         print("     /   u    /    v    /    x    /    y    /    z")
         print("     /")
-        print("  u  /__"+str(DVB(a,a))+"__\n___"+str(DVB(a,b))+"___\n___"+str(DVB(a,c))+"_\n___"+str(DVB(a,d))+"____\n____"+str(DVB(a,e))+"________\n_________")
+        print("  u  /__"+str(DVB(a,a))+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,a))+"_________________")
         print("     /")
         print("     /")
-        print("  v  /__"+str(DVB(b,a))+"__\n___"+str(DVB(b,b))+"___\n___"+str(DVB(b,c))+"_\n___"+str(DVB(b,d))+"___\n_____"+str(DVB(b,e))+"_____\n____________")
+        print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"_____"+str(DVB(b,c))+"____"+str(DVB(b,d))+"_______"+str(DVB(b,a))+"_________________")
         print("     /")
         print("     /")
-        print("  x  /__"+str(DVB(c,a))+"__\n___"+str(DVB(c,b))+"__\n____"+str(DVB(c,c))+"__\n__"+str(DVB(c,d))+"___\n_____"+str(DVB(c,e))+"______\n___________")
+        print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,a))+"________________")
         print("     /")
         print("     /")
-        print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
+        print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,a))+"_________________")
         print("     /")
         print("     /")
         print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
@@ -473,6 +481,7 @@ def table(table,a,b,c,d,e):
         print("     /")
         print("     /")
 
+debug = False
 
 global DVA_table
 DVA_table= SuperMap(5)
@@ -499,5 +508,5 @@ DVA_table['z'] = z
 #print(DVA_table)
 
 #print(u.valt('right'))
-print(str(DVB('u','x')))
+print(str(DVB('y','z')))
 #table(DVA_table,'u','v','x','y','z')
