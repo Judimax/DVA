@@ -8,7 +8,7 @@ Description: This program makes uses and mainipulation the algorithm of List ADT
 whether it be people or anything, at the same time using less memory
 ----------------------------------------------------------------------------------"""
 from Array import *
-from Quicksort algorithm import *
+from Quicksort_algorithm import *
 
 class SuperMap:
 
@@ -338,7 +338,9 @@ class SuperMap:
             those_Keys.append(runner.key)
             runner = runner.next
 
-        return quicksort(those_Keys, 0 ,len(those_Keys)-1)
+        
+        quicksort(those_Keys, 0 ,len(those_Keys)-1)
+        return those_Keys
     
         
         
