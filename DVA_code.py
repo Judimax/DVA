@@ -5,11 +5,11 @@ a counter so recursion stops when the same node is encountered'''
 
 
 from Distance_vect import * 
-from Supermap
+from supermap import *
 class digit():
     
             
-    def __init__(self):
+    def __init__(self,value):
     
 
         self.left= ''
@@ -60,24 +60,27 @@ def table(a,b,c,d,e):
         print("     /")
         print("  z  /_____________________________________________")
         print("     /")
-        print("     /")
+        print("     /")for al:
         
         print("     /")
         print("     /")
 
 if __name__ == "__main__":
-    
-    DVA_table.append(digit('u'))
-    DVA_table.append(digit('v'))
-    DVA_table.append(digit('x'))
-    DVA_table.append(digit('y'))
-    DVA_table.append(digit('z'))
 
-    digit('u').add(None,'v',None,'y',0,1,0,2)
-    digit('v').add('u','z',None,'x',1,6,0,3)
-    digit('x').add('y','z','v',None,3,3,2,0)
-    digit('y').add(None,'x','u',None,0,3,2,0)
-    digit('z').add('x',None,'v',None,2,0,6,0)
+    DVA_table = SuperMap()
+    u = digit()
+    v = digit()
+    x = digit()
+    y = digit()
+    z = digit()
+
+    DVA_table.append(u.add(None,'v',None,'y',0,1,0,2))
+    DVA_table.append(v.add('u','z',None,'x',1,6,0,3))
+    DVA_table.append(x.add('y','z','v',None,3,3,2,0))
+    DVA_table.append(y.add(None,'x','u',None,0,3,2,0))
+    DVA_table.append(z.add('x',None,'v',None,2,0,6,0))
+
+
     for i in DVA_table:
         print(i)
     
