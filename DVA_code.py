@@ -1,6 +1,4 @@
-'''trouble was in the find method for supermap and where I placed
-printed debug statements, seems not to know how to get to dest_node
-when it has to pass through 2 or more nodes
+'''got algorithmn to work for neighorbor destination long cde mechanism for working with far away addresses
 '''
 
 
@@ -67,48 +65,96 @@ def DVA(source_ltr,dest_ltr):
         print('this is the first xylis')
         print(source_ltr,   xylis)
         
-        
-        if xylis.l_value != 0:
-                if xylis.left != dest_ltr:
+        if debug:
+            print('im in blue')
+        if xylis.l_value != 0 and xylis.left == dest_ltr::
+                
                     print('going inside blue')
                     blue =xylis.l_value + DVA(xylis.left,dest_ltr)
                     
-                print('im in blue')
                 if debug == True:
-                    print(blue)
+                    print('this is left')
                     print((xylis.left), (dest_ltr))
-        if xylis.r_value != 0:
-                if xylis.right != dest_ltr:
-                    print('going inside red')
+                print('getting out of blue')
+                
+        if debug:
+            print('im in red')
+        if xylis.r_value != 0 and xylis.right == dest_ltr:
+                    print('going inside red to get a value')
                     red = xylis.r_value + DVA(xylis.right,dest_ltr)
-                print('im in red')
                 if debug == True:
                     print('this is right')
                     print((xylis.right), (dest_ltr))
                 print('getting out of red')
         if debug:       
-            print('now im here')
+            print('im in yellow')
             
-        if xylis.u_value != 0:
-                if xylis.up != dest_ltr:
-                    print('going inside yellow')
-                    yellow =xylis.u_value + DVA(xylis.up,dest_ltr)
-                print('im in yellow')
+        if xylis.u_value != 0 and xylis.up == dest_ltr:
+                print('going inside yellow to get a valuue')
+                yellow =xylis.u_value + DVA(xylis.up,dest_ltr)
                 if debug == True:
-                    print(yellow)
+                    print('this is up')
                     print((xylis.up), (dest_ltr))
+                print('getting out of yellow')
         if debug:
-            print('now im here')
-                       
-        if xylis.d_value != 0:
-                if xylis.down != dest_ltr:
-                    print('going inside green')
+            print('im in green')
+        if xylis.d_value != 0 and xylis.down == dest_ltr:
+                    
+                    print('going inside green to get a value')
                     green =xylis.d_value + DVA(xylis.down,dest_ltr)   
-                print('im in green')
-                if debug == True:
-                    print(green)
-                    print((xylis.down), (dest_ltr))
-        print("i cant seem to get out of here")
+                    
+                    if debug == True:
+                        print(green)
+                        print((xylis.down), (dest_ltr))
+                    print('getting out of green')
+        else:
+            if debug:
+                print('now looking for destination')
+                        
+            if xylis.l_value != 0:
+                    if xylis.left != dest_ltr:
+                        print('going inside blue to get a value')
+                        blue =xylis.l_value + DVA(xylis.left,dest_ltr)                        
+                    print('im in blue')
+                    if debug == True:
+                        print(blue)
+                        print((xylis.left), (dest_ltr))
+            if xylis.r_value != 0:
+                    if xylis.right != dest_ltr:
+                        print('going inside red to get a value')
+                        red = xylis.r_value + DVA(xylis.right,dest_ltr)
+                    print('im in red')
+                    if debug == True:
+                        print('this is right')
+                        print((xylis.right), (dest_ltr))
+                    print('getting out of red')
+            if debug:       
+                print('now im here')
+                
+            if xylis.u_value != 0:
+                    if xylis.up != dest_ltr:
+                        print('going inside yellow to get a value')
+                        yellow =xylis.u_value + DVA(xylis.up,dest_ltr)
+                    print('im in yellow')
+                    if debug == True:
+                        print(yellow)
+                        print((xylis.up), (dest_ltr))
+            if debug:
+                print('now im here')
+                           
+            if xylis.d_value != 0:
+                    if xylis.down != dest_ltr:
+                        print('going inside green to get a value')
+                        green =xylis.d_value + DVA(xylis.down,dest_ltr)   
+                    print('im in green')
+                    if debug == True:
+                        print(green)
+                        print((xylis.down), (dest_ltr))
+        
+            
+
+            
+        print("got out :)")
                     
         if debug == True:
             print('here is the minimun value')
@@ -126,7 +172,7 @@ def table(table,a,b,c,d,e):
 
         print("     /   u    /    v    /    x    /    y    /    z")
         print("     /")
-        print("  u  /__"+str(DVA(a,a))+"___"+str(DVA(a,b))+"________________________________________")
+        print("  u  /__"+str(DVA(a,a))+"___________"+str(DVA(a,b))+"________________________________________")
         print("     /")
         print("     /")
         print("  v  /_____________________________________________")
@@ -145,8 +191,6 @@ def table(table,a,b,c,d,e):
         print("     /")
 
 
-
-debug = False
 global DVA_table
 DVA_table= SuperMap(5)
 u = digit()
