@@ -1,6 +1,5 @@
-'''used a dictionary hold all information about the objects neighbors'''
-
-
+'''using nested contatiners to contain infomation'''
+from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
 import time
@@ -11,24 +10,36 @@ snap_this = ''
 class digit():
     
             
-    def __init__(self):
-    
-        self.innerdict = {} #hold all information about the objects neighbors
+    def __init__(self,name):
+
+        self.name = name
+        self.innerlist = [] #hold all information about the objects neighbors
         
     def add(self,left,right,up,down,l,r,u,d):
 
-        self.innerdict = {'left':left,'right':right,'up':up,'down':down,'l_value':l,'r_value':r,'u_value':u,'d_value':d}
+        
+        blue = {'left':left,'l_value':l,}
+        red = {'right':right,'r_value':r,}
+        yellow = {'up':up,'u_value':u,}
+        green = {'down':down,'d_value':d}
+        self.innerlist += [blue,red,yellow,green]
         
 
     def __str__(self):
-        
-        for keys,values in self.innerdict
-        return str(self.innerdict) + '\n'
+
+        node = self.name + '\n'
+        for i in self.innerlist:
+            i = str(i)
+            i = i.strip("{")
+            i = i.strip("}")
+            node += i + '\n'
+        return node
     
     def valt (self,value = ''):
-        for i in self.innerdict.keys():
-            if value == i:
-                return i
+        for i in self.innerlist:
+            for k in i.keys():
+                if value == k:
+                    return i
             
     def __iter__(self):
         self.__i__= 0
@@ -435,11 +446,11 @@ def table(table,a,b,c,d,e):
 
 global DVA_table
 DVA_table= SuperMap(5)
-u = digit()
-v = digit()
-x = digit()
-y = digit()
-z = digit()
+u = digit('u')
+v = digit('v')
+x = digit('x')
+y = digit('y')
+z = digit('z')
 '''u.add(None,'v',None,'y',0,1,0,2)
 v.add('u','z',None,'x',1,6,0,3)
 x.add('y','z','v',None,3,2,3,0)
@@ -457,11 +468,11 @@ DVA_table['x'] = x
 #DVA_table['z'] = z
 
 
-print(DVA_table)
-
+#print(DVA_table)
+print(u)
 print(u.valt('right'))
 
 
 
-print(str(DVB('u','x')))
+#print(str(DVB('u','x')))
 #table(DVB_table,'u','v','x','y','z')
