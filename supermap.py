@@ -8,6 +8,7 @@ Description: This program makes uses and mainipulation the algorithm of List ADT
 whether it be people or anything, at the same time using less memory
 ----------------------------------------------------------------------------------"""
 from Array import *
+from Quicksort algorithm import *
 
 class SuperMap:
 
@@ -326,6 +327,18 @@ class SuperMap:
         else:
             return None
         
+    def getKeys(self): #Find out why memory does not like adding itself to a list
+        """This method gets all the keys in the linked list and sorts them according to
+            the keys and returns that sorted list"""
+
+        those_Keys = []
+        runner = self.headptr
+
+        while runner != None:
+            those_Keys.append(runner.key)
+            runner = runner.next
+
+        return quicksort(those_Keys, 0 ,len(those_Keys)-1)
     
         
         
