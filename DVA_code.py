@@ -1,9 +1,15 @@
+'''using a linked list implementation to keep values associated with the node
+because lists cannot keep the type of the other nodes without explicitly
+writing it in as a value, hit and infinite recursion, could implement
+a counter so recursion stops when the same node is encountered'''
+
+
 from Distance_vect import * 
-
-
-class digit:
+from Supermap
+class digit():
+    
             
-    def __init__(self,title=''):
+    def __init__(self):
     
 
         self.left= ''
@@ -55,6 +61,7 @@ def table(a,b,c,d,e):
         print("  z  /_____________________________________________")
         print("     /")
         print("     /")
+        
         print("     /")
         print("     /")
 
