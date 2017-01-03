@@ -1,8 +1,4 @@
-'''Found big problem
-DVA code doesnt account that it has already been through chosen path
-make a recorder for it to go by
-recusion forgets to add original lengths from path to path
-rewrite DVA
+'''DVB object uses anthropomorphic concepts to find the shortest path, starts to get anthropormorphic past the neighbor level
 '''
 
 
@@ -44,7 +40,56 @@ class digit():
 
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
+def DVB(source_ltr, dest_ltr):
+    
+    if source_ltr == dest_ltr:
+        return 0
+    else:
+        KMP = [] #keep moving foward
+        '''--------------------code to loop on'''
+        KMP.append(source_ltr) #knows not to go back
+        path_sum = 0 #gets the sum
+        xylis= DVA_table.find(source_ltr) #activates the string as a xylis
+        #node
+        if debug:
+            print(KMP[-1])
+            print(KMP)
+            print(xylis)
+            print(path_sum)
+        '''--------------------------- code to loop on'''
+        KMP.append(xylis.right)
+        path_sum += xylis.r_value
+        if KMP[-1] == dest_ltr: 
+            
 
+        xylis = DVA_table.find(KMP[-1])
+        
+        #node
+        if debug:
+            print(KMP[-1])
+            print(KMP)
+            print(xylis)
+            print(path_sum)
+        '''---------------------------------------'''
+        KMP.append(xylis.down)
+        path_sum+= xylis.d_value
+        if KMP[-1] == dest_ltr: 
+            
+
+        xylis = DVA_table.find(KMP[-1])
+        #node
+        if debug:
+            print(KMP[-1])
+            print(KMP)
+            print(xylis)
+            print(path_sum)
+        '''-----------------------------------------'''
+            
+    
+        
+        
+        
+    
 def DVA(source_ltr,dest_ltr):
         answer = input()
         global snap_this
@@ -240,25 +285,25 @@ def table(table,a,b,c,d,e):
 
         print("     /   u    /    v    /    x    /    y    /    z")
         print("     /")
-        print("  u  /__"+str(DVA(a,a))[1]+"_____"+str(DVA(a,b))+"______"+str(DVA(a,c))+"____"+str(DVA(a,d))+"________"+str(DVA(a,e))+"_________________")
+        print("  u  /__"+str(DVB(a,a))[1]+"_____"+str(DVB(a,b))+"______"+str(DVB(a,c))+"____"+str(DVB(a,d))+"________"+str(DVB(a,e))+"_________________")
         print("     /")
         print("     /")
-        #print("  v  /__"+str(DVA(b,a))+"_____"+str(DVA(b,b))+"______"+str(DVA(b,c))+"____"+str(DVA(b,d))+"________"+str(DVA(b,e))+"_________________")
+        #print("  v  /__"+str(DVB(b,a))+"_____"+str(DVB(b,b))+"______"+str(DVB(b,c))+"____"+str(DVB(b,d))+"________"+str(DVB(b,e))+"_________________")
         print("     /")
         print("     /")
-        #print("  x  /__"+str(DVA(c,a))+"_____"+str(DVA(c,b))+"______"+str(DVA(c,c))+"____"+str(DVA(c,d))+"________"+str(DVA(c,e))+"_________________")
+        #print("  x  /__"+str(DVB(c,a))+"_____"+str(DVB(c,b))+"______"+str(DVB(c,c))+"____"+str(DVB(c,d))+"________"+str(DVB(c,e))+"_________________")
         print("     /")
         print("     /")
-        #print("  y  /__"+str(DVA(d,a))+"_____"+str(DVA(d,b))+"______"+str(DVA(d,c))+"____"+str(DVA(d,d))+"________"+str(DVA(d,e))+"_________________")
+        #print("  y  /__"+str(DVB(d,a))+"_____"+str(DVB(d,b))+"______"+str(DVB(d,c))+"____"+str(DVB(d,d))+"________"+str(DVB(d,e))+"_________________")
         print("     /")
         print("     /")
-        #print("  z  /__"+str(DVA(e,a))+"_____"+str(DVA(e,b))+"______"+str(DVA(e,c))+"____"+str(DVA(e,d))+"________"+str(DVA(e,e))+"_________________")
+        #print("  z  /__"+str(DVB(e,a))+"_____"+str(DVB(e,b))+"______"+str(DVB(e,c))+"____"+str(DVB(e,d))+"________"+str(DVB(e,e))+"_________________")
         print("     /")
         print("     /")
         print("     /")
         print("     /")
 
-
+debug = False
 global DVA_table
 DVA_table= SuperMap(5)
 u = digit()
@@ -283,5 +328,5 @@ print(DVA_table)
 
 
 
-print(str(DVA('u','x'))[1])
-#table(DVA_table,'u','v','x','y','z')
+print(str(DVB('u','x')))
+#table(DVB_table,'u','v','x','y','z')
