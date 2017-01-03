@@ -1,4 +1,4 @@
-'''using nested contatiners to contain infomation'''
+'''finally got it to work using this implementation'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -15,14 +15,22 @@ class digit():
         self.name = name
         self.innerlist = [] #hold all information about the objects neighbors
         
-    def add(self,left,right,up,down,l,r,u,d):
+    def add(self,left,right,up,down,l,r,u,do):
 
         
-        blue = {'left':left,'l_value':l,}
-        red = {'right':right,'r_value':r,}
-        yellow = {'up':up,'u_value':u,}
-        green = {'down':down,'d_value':d}
-        self.innerlist += [blue,red,yellow,green]
+        a = ['left',left]
+        b= ['l_value',l]
+        ab= [a,b]
+        c = ['right',right]
+        d = ['r_value',r]
+        cd = [c,d]
+        e =['up',up]
+        f =['u_value',u]
+        ef = [e,f]
+        g = ['down',down]
+        h = ['d_value',do]
+        gh = [g,h]
+        self.innerlist += [ab,cd,ef,gh]
         
 
     def __str__(self):
@@ -30,16 +38,20 @@ class digit():
         node = self.name + '\n'
         for i in self.innerlist:
             i = str(i)
-            i = i.strip("{")
-            i = i.strip("}")
+            i = i.strip("[")
+            i = i.strip("]")
             node += i + '\n'
         return node
     
     def valt (self,value = ''):
+        
         for i in self.innerlist:
-            for k in i.keys():
-                if value == k:
-                    return i
+            for k in i:
+                for l in k:
+                    print(l)
+                    if value == l:
+                        
+                        return k[1]
             
     def __iter__(self):
         self.__i__= 0
@@ -69,28 +81,31 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
         path_sum = 0 #gets the sum
         
         xylis= DVA_table.find(source_ltr)
-        print('KTLR,TLFT,choices,path_sum,xylis('+ source_ltr +')')
+        print('KTLR,TLFT,choices,path_sum\n,xylis('+ source_ltr +')')
         print(KTLR,TLFT,choices,path_sum,xylis)
-        for i in hands:
-            
-            if xylis.tval(i) == None:
-                print(i)
-                print('xylis('+ xylis.tval(i) +')')
-                print(xylis.i)
+        i = 0
+        for i in xylis.innerlist:
+            if i[0][1] != None:
+                print('===========')
+                print(i[0][0])
+                print(i[0][1])
+                 
+                print('in xylis('+ source_ltr+')')
                 print('\n')
                 
-                if xylis.i not in KMP:
-                    KTLR.append(xylis.i)
+                if i[0][1] not in KMP:
+                    KTLR.append(i[0][1])
                     print(i)
                     print('KTLR')
                     print(KTLR)
                     print('\n')
-                    path_sum += xylis.hands[i] + DVB(KTLR[-1],dest_ltr,KMP)
+                    path_sum += i[1][1] + DVB(KTLR[-1],dest_ltr,KMP)
                     print('in source_ltr    ' + source_ltr)
-                    print(i)
+                    print('\n')
                     print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
-                    print(path_sum, xylis.hands[i],path_sum-xylis.hands[i] )
+                    print(path_sum, i[1][1],path_sum-i[1][1])
                     choices.append(path_sum)
+                    path_sum = 0 
                     print(i)
                     print('choices')
                     print(choices)
@@ -344,6 +359,7 @@ def DVA(source_ltr,dest_ltr):
                         if xylis.left != dest_ltr:
                             print('going inside blue to get a value')
                             snap_this = xylis.left
+                            KTLR.append(i[0][1])
                             if debug:
                                 print(snap_this)
                             blue =xylis.l_value + DVA(xylis.left,dest_ltr)[0]
@@ -451,28 +467,23 @@ v = digit('v')
 x = digit('x')
 y = digit('y')
 z = digit('z')
-'''u.add(None,'v',None,'y',0,1,0,2)
+u.add(None,'v',None,'y',0,1,0,2)
 v.add('u','z',None,'x',1,6,0,3)
 x.add('y','z','v',None,3,2,3,0)
 y.add(None,'x','u',None,0,3,2,0)
-z.add('x',None,'v',None,2,0,6,0)'''
+z.add('x',None,'v',None,2,0,6,0)
 
-u.add(None,'v',None,None,0,1,0,0)
-v.add('u',None,None,'x',1,0,0,3)
-x.add(None,None,'v',None,0,0,3,0)
+
 
 DVA_table['u'] = u
 DVA_table['v'] = v
 DVA_table['x'] = x
-#DVA_table['y'] = y
-#DVA_table['z'] = z
+DVA_table['y'] = y
+DVA_table['z'] = z
 
 
 #print(DVA_table)
-print(u)
-print(u.valt('right'))
 
-
-
-#print(str(DVB('u','x')))
+#print(u.valt('right'))
+print(str(DVB('u','v')))
 #table(DVB_table,'u','v','x','y','z')
