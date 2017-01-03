@@ -1,4 +1,4 @@
-'''tiny addition to add method to make sure appended, not all neighbors, are added'''
+'''tiny addition to add method to make sure now user_inputs inquries appear making user_interface program soon'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -20,23 +20,25 @@ class digit():
         try:
             neigh = neighbor
             n_val = value
-            while True:
-                if human_input:
+            
+            if human_input:
+                while True:
                     neighbor = str(input("What is the name of the neighbor?"))
                     neigh.append(neighbor)
                     value = int(input("How far is it from?"))
                     n_val.append(value)
+                    done = input("Have you finish adding?")
+                    if done.find('y') ==-1:
+                        break
 
-                self.innerlist.clear()
-                for i in range(len(neigh)):
-                    a = ['neighbor',neigh[i]]
-                    b = ['neigh_value',n_val[i]]
-                    ab= [a,b]
-                    self.innerlist.append(ab)
+            
+            for i in range(len(neigh)):
+                a = ['neighbor',neigh[i]]
+                b = ['neigh_value',n_val[i]]
+                ab= [a,b]
+                self.innerlist.append(ab)
 
-                done = input("Have you finish adding (type y if youre done or this is the only thing you see")
-                if done =='y':
-                    return
+            return
         
         except:
             print("it didn't go through correctly try again")
@@ -213,4 +215,4 @@ print(DVA_table)
 
 #print(u.valt('right'))
 #print(str(DVB('v','z')))
-#table(DVA_table,'u','v','x','y','z')
+table(DVA_table,'u','v','x','y','z')
