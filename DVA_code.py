@@ -1,7 +1,5 @@
-'''using a linked list implementation to keep values associated with the node
-because lists cannot keep the type of the other nodes without explicitly
-writing it in as a value, hit and infinite recursion, could implement
-a counter so recursion stops when the same node is encountered'''
+'''update seems to be printing values properly with subclass as digits that
+represents the node keeps intended data integrity or IDI'''
 
 
 from Distance_vect import * 
@@ -9,7 +7,7 @@ from supermap import *
 class digit():
     
             
-    def __init__(self,value):
+    def __init__(self):
     
 
         self.left= ''
@@ -35,7 +33,7 @@ class digit():
 
     def __str__(self):
 
-        return str(self.left) + str(self.right) + str(self.up) + str(self.down) + "\n" + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)  
+        return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
 DVA_table = []
 
@@ -60,7 +58,7 @@ def table(a,b,c,d,e):
         print("     /")
         print("  z  /_____________________________________________")
         print("     /")
-        print("     /")for al:
+        print("     /")
         
         print("     /")
         print("     /")
@@ -73,15 +71,20 @@ if __name__ == "__main__":
     x = digit()
     y = digit()
     z = digit()
+    u.add(None,'v',None,'y',0,1,0,2)
+    v.add('u','z',None,'x',1,6,0,3)
+    x.add('y','z','v',None,3,3,2,0)
+    y.add(None,'x','u',None,0,3,2,0)
+    z.add('x',None,'v',None,2,0,6,0)
+    
+    DVA_table.append('u',u)
+    DVA_table.append('v',v)
+    DVA_table.append('x',x)
+    DVA_table.append('y',y)
+    DVA_table.append('z',z)
 
-    DVA_table.append(u.add(None,'v',None,'y',0,1,0,2))
-    DVA_table.append(v.add('u','z',None,'x',1,6,0,3))
-    DVA_table.append(x.add('y','z','v',None,3,3,2,0))
-    DVA_table.append(y.add(None,'x','u',None,0,3,2,0))
-    DVA_table.append(z.add('x',None,'v',None,2,0,6,0))
+    print(DVA_table)
 
-
-    for i in DVA_table:
-        print(i)
+    
     
     #table(u,v,x,y,z)
