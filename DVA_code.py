@@ -1,5 +1,5 @@
-'''DVA function gets to destination node, but does not know how to exit function
-might need to implement while loops instead
+'''Found that 1st recursion needs to know that it already got to the
+destination node, changes to save space and time are made here
 '''
 
 
@@ -40,21 +40,26 @@ class digit():
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
 def DVA(source_ltr,dest_ltr):
+        snap = ''
+        tarmet= []
+        tarmet.append(0)
+        tarmet.append(source_ltr)
+    
         if debug:
             print('I choose recursion')
             print('Face down')
             print('End turn')
             print(source_ltr,dest_ltr)
-        answer = input()
+            answer = input()
         
 
         if source_ltr == None:
                 print('stop here')
-                return 0
+                return tarmet[0]
             
         if source_ltr == dest_ltr:
                 print('got out there!!!')
-                return 0
+                return tarmet
 
 
         
@@ -85,7 +90,8 @@ def DVA(source_ltr,dest_ltr):
             print('im in red')
         if xylis.right == dest_ltr:
                     print('going inside red to get a value')
-                    red = xylis.r_value + DVA(xylis.right,dest_ltr)
+                    red = xylis.r_value + DVA(xylis.right,dest_ltr)[0]
+                    snap_this = DVA(xylis.right,dest_ltr)[1] 
                     if debug == True:
                         print('this is right')
                         print((xylis.right), (dest_ltr))
@@ -108,17 +114,19 @@ def DVA(source_ltr,dest_ltr):
                     green =xylis.d_value + DVA(xylis.down,dest_ltr)   
                     
                     if debug == True:
-                        print(green)
+                        print('this is down')
                         print((xylis.down), (dest_ltr))
                     print('getting out of green')
 
 
 
-
+        if source_ltr == dest_ltr:
+                pass
                     
         else:
             if debug:
                 print('now looking for destination')
+            
                         
             if xylis.l_value != 0:
                     if xylis.left != dest_ltr:
@@ -142,12 +150,14 @@ def DVA(source_ltr,dest_ltr):
                 
             if xylis.u_value != 0:
                     if xylis.up != dest_ltr:
-                        print('going inside yellow to get a value')
+                        p
+        rint('going inside yellow to get a value')
                         yellow =xylis.u_value + DVA(xylis.up,dest_ltr)
                     print('im in yellow')
                     if debug == True:
-                        print(yellow)
+                        print('this is up')
                         print((xylis.up), (dest_ltr))
+                    print('get getting out of yellow')
             if debug:
                 print('now im going to green')
                            
@@ -168,7 +178,10 @@ def DVA(source_ltr,dest_ltr):
         if debug == True:
             print('here is the minimun value')
             print(min(blue,red,yellow,green))
-        return min(blue,red,yellow,green)
+        tarmet.append(min(blue,red,yellow,green))
+        tarmnet.append(source_ltr)
+        tarmet.append(dest_ltr)
+        return tarmnet
 
                 
 
