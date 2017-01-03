@@ -1,5 +1,5 @@
-'''seems to be adding one step ahead of and adds prev lengths to its choices
-'''
+'''going to put choices handling in a for loop,going through all its hands
+as each iterations'''
 
 
 from Distance_vect import *
@@ -41,6 +41,12 @@ class digit():
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
 def DVB(source_ltr, dest_ltr,KM_P = []):
+    hands =[]
+    hands.append('left')
+    hands.append('right')
+    hands.append('up')
+    hands.append('down')
+    print('hands-----\n',hands)
     print('source_ltr, dest_ltr,KM_P')
     print(source_ltr, dest_ltr,KM_P)
     KMP = [] #keep moving foward
@@ -51,17 +57,20 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
     print(source_ltr, dest_ltr,KMP)
     
     if source_ltr == dest_ltr:
-        print('equal')
-        return 0
+        vald =0
+        print('equal',vald)
+        return vald
+    
     else:
         KTLR = [] #memory of neighbors
         TLFT = [] #memory of paths
-        choices = [] #memory of lengths  
+        choices = [] #memory of lengths 
         path_sum = 0 #gets the sum
         
         xylis= DVA_table.find(source_ltr)
         print('KTLR,TLFT,choices,path_sum,xylis('+ source_ltr +')')
         print(KTLR,TLFT,choices,path_sum,xylis)
+        
         if xylis.left != None:
             print('left\n')
             print('xylis('+ xylis.left +')')
@@ -73,8 +82,9 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print('KTLR')
                 print(KTLR)
                 path_sum += xylis.l_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print('in source_ltr    ' + source_ltr)
                 print('left\n')
-                print('path_sum from  ' + source_ltr+ ' to ' + KTLR[-1])
+                print('path_sum from  ' + source_ltr+ ' to ' + dest_ltr)
                 print(path_sum, xylis.l_value ,path_sum-xylis.l_value )
                 choices.append(path_sum)
                 print('left\n')
@@ -90,8 +100,9 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print('KTLR')
                 print(KTLR)
                 path_sum += xylis.r_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print('in source_ltr    ' + source_ltr)
                 print('right\n')
-                print('path_sum from ' + source_ltr+ ' to ' + KTLR[-1])
+                print('path_sum from ' + source_ltr+ ' to ' + dest_ltr)
                 print(path_sum, xylis.r_value , path_sum - xylis.r_value)
                 choices.append(path_sum)
                 print('right\n')
@@ -107,8 +118,9 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print('KTLR')
                 print(KTLR)
                 path_sum += xylis.u_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print('in source_ltr    ' + source_ltr)
                 print('up\n')
-                print('path_sum from ' + source_ltr  + ' to ' +   KTLR[-1])
+                print('path_sum from ' + source_ltr  + ' to ' +   dest_ltr)
                 print(path_sum, xylis.u_value ,path_sum-  xylis.u_value)
                 choices.append(path_sum)
                 print('up\n')
@@ -124,8 +136,9 @@ def DVB(source_ltr, dest_ltr,KM_P = []):
                 print('KTLR')
                 print(KTLR)
                 path_sum += xylis.d_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print('in source_ltr    ' + source_ltr)
                 print('down\n')
-                print('path_sum from ' + source_ltr+ ' to ' + KTLR[-1])
+                print('path_sum from ' + source_ltr+ ' to ' + dest_ltr)
                 print(path_sum, xylis.d_value , path_sum -xylis.d_value)
                 choices.append(path_sum)
                 print('down\n')
@@ -487,22 +500,26 @@ v = digit()
 x = digit()
 y = digit()
 z = digit()
-u.add(None,'v',None,'y',0,1,0,2)
+'''u.add(None,'v',None,'y',0,1,0,2)
 v.add('u','z',None,'x',1,6,0,3)
 x.add('y','z','v',None,3,2,3,0)
 y.add(None,'x','u',None,0,3,2,0)
-z.add('x',None,'v',None,2,0,6,0)
+z.add('x',None,'v',None,2,0,6,0)'''
+
+u.add(None,'v',None,None,0,1,0,0)
+v.add('u',None,None,'x',1,0,0,3)
+x.add(None,None,'v',None,0,0,3,0)
 
 DVA_table['u'] = u
 DVA_table['v'] = v
 DVA_table['x'] = x
-DVA_table['y'] = y
-DVA_table['z'] = z
+#DVA_table['y'] = y
+#DVA_table['z'] = z
 
 
 print(DVA_table)
 
 
 
-print(str(DVB('u','z')))
+print(str(DVB('u','x')))
 #table(DVB_table,'u','v','x','y','z')
