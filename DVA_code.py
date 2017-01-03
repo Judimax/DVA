@@ -1,4 +1,4 @@
-'''got it in 35 steps'''
+'''implemented an add method for user customization of node'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -15,23 +15,33 @@ class digit():
         self.name = name
         self.innerlist = [] #hold all information about the objects neighbors
         
-    def add(self,left,right,up,down,l,r,u,do):
+    def add(self,neighbor = [],value = [],human_input = False): #made to handle any amount of neighbors now
 
+        try:
+            neigh = neighbor
+            n_val = value
+            while True:
+                if human_input:
+                    neighbor = str(input("What is the name of the neighbor?"))
+                    neigh.append(neighbor)
+                    value = int(input("How far is it from?"))
+                    n_val.append(value)
+
+                
+                for i in range(len(neigh)):
+                    a = ['neighbor',neigh[i]]
+                    b = ['neigh_value',n_val[i]]
+                    ab= [a,b]
+                    self.innerlist.append(ab)
+
+                done = input("Are we done here")
+                if done =='y':
+                    return
         
-        a = ['left',left]
-        b= ['l_value',l]
-        ab= [a,b]
-        c = ['right',right]
-        d = ['r_value',r]
-        cd = [c,d]
-        e =['up',up]
-        f =['u_value',u]
-        ef = [e,f]
-        g = ['down',down]
-        h = ['d_value',do]
-        gh = [g,h]
-        self.innerlist += [ab,cd,ef,gh]
-        
+        except:
+            print("it didn't go through correctly try again")
+            self.add()
+    
 
     def __str__(self):
 
@@ -181,7 +191,10 @@ v = digit('v')
 x = digit('x')
 y = digit('y')
 z = digit('z')
-u.add(None,'v',None,'y',0,1,0,2)
+g = digit('g')
+g.add(['q','g'],[7,5],True)
+print(g)
+'''u.add(None,'v',None,'y',0,1,0,2)
 v.add('u','z',None,'x',1,6,0,3)
 x.add('y','z','v',None,3,2,3,0)
 y.add(None,'x','u',None,0,3,2,0)
@@ -200,4 +213,4 @@ DVA_table['z'] = z
 
 #print(u.valt('right'))
 #print(str(DVB('v','z')))
-table(DVA_table,'u','v','x','y','z')
+table(DVA_table,'u','v','x','y','z')'''
