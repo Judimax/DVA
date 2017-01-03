@@ -1,4 +1,4 @@
-'''trying to let dvb know how to count path from original considering recursion
+'''used recursion to let dvb know the variables it cannot go back to as I recurse
 '''
 
 
@@ -40,40 +40,52 @@ class digit():
 
         return str(self.left) + str(self.right) + str(self.up) + str(self.down)  + str(self.l_value) + str(self.r_value) + str(self.u_value) + str(self.d_value)+ '\n'
 
-def DVB(source_ltr, dest_ltr):
+def DVB(source_ltr, dest_ltr,KM_P = []):
+    print('source_ltr, dest_ltr,KM_P')
+    print(source_ltr, dest_ltr,KM_P)
+    KMP = [] #keep moving foward
+    KMP += KM_P
+    KMP.append(source_ltr)
+    print('source_ltr, dest_ltr,KM_P')
+    print(source_ltr, dest_ltr,KM_P)
     
     if source_ltr == dest_ltr:
         return 0
     else:
-        KLTR = [] #memory of neighbors
+        KTLR = [] #memory of neighbors
         TLFT = [] #memory of paths
-        choices = [] #memory of lengths
-        KMP = [] #keep moving foward
+        choices = [] #memory of lengths  
         path_sum = 0 #gets the sum
-
+        print('KTLR,T
         xylis= DVA_table.find(source_ltr)
         if xylis.left != None:
-            KLTR.append(xylis.left)
-            
-            #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
+            if xylis.left not in KMP:
+                KTLR.append(xylis.left)
+                path_sum += xylis.l_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print(choices)
+                choices.append(path_sum)
         if xylis.right != None:
-            KLTR.append(xylis.right)
-            
+            if xylis.right not in KMP:
+                KTLR.append(xylis.right)
+                path_sum += xylis.r_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print(choices)
+                choices.append(path_sum)
         if xylis.up != None:
-            KLTR.append(xylis.up)
-            
+            if xylis.up not in KMP:
+                KTLR.append(xylis.up)
+                path_sum += xylis.u_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print(choices)
+                choices.append(path_sum)
         if xylis.down != None:
-            KLTR.append(xylis.down)
-
+            if xylis.down not in KMP:
+                KTLR.append(xylis.down)
+                path_sum += xylis.d_value + DVB(KTLR[-1],dest_ltr,KMP)
+                print(choices)
+                choices.append(path_sum)
         if debug:
-            print(KLTR)
-
-        #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum)
-        for neigh in KLTR:
-            KMP.append(neigh)
-            path_sum +=
-            xylis = DVA_table.find(neigh) # we begin
-        return
+            print(KTLR)
+        #DVC(source_ltr,dest_ltr,xylis,TLFT,KMP,choices,path_sum) 
+        return min(choices)
         
 
         
@@ -442,5 +454,5 @@ print(DVA_table)
 
 
 
-print(str(DVB('u','x')))
+print(str(DVB('u','v')))
 #table(DVB_table,'u','v','x','y','z')
