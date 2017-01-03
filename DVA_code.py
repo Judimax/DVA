@@ -1,4 +1,4 @@
-'''implemented an add method for user customization of node'''
+'''tiny addition to add method to make sure appended, not all neighbors, are added'''
 from collections import OrderedDict
 from Distance_vect import *
 from supermap import *
@@ -27,14 +27,14 @@ class digit():
                     value = int(input("How far is it from?"))
                     n_val.append(value)
 
-                
+                self.innerlist.clear()
                 for i in range(len(neigh)):
                     a = ['neighbor',neigh[i]]
                     b = ['neigh_value',n_val[i]]
                     ab= [a,b]
                     self.innerlist.append(ab)
 
-                done = input("Are we done here")
+                done = input("Have you finish adding (type y if youre done or this is the only thing you see")
                 if done =='y':
                     return
         
@@ -191,14 +191,14 @@ v = digit('v')
 x = digit('x')
 y = digit('y')
 z = digit('z')
-g = digit('g')
+'''g = digit('g')
 g.add(['q','g'],[7,5],True)
-print(g)
-'''u.add(None,'v',None,'y',0,1,0,2)
-v.add('u','z',None,'x',1,6,0,3)
-x.add('y','z','v',None,3,2,3,0)
-y.add(None,'x','u',None,0,3,2,0)
-z.add('x',None,'v',None,2,0,6,0)
+print(g)'''
+u.add(['v','y'],[1,2])
+v.add(['u','z','x'],[1,6,3])
+x.add(['y','z','v'],[3,2,3])
+y.add(['x','u'],[3,2])
+z.add(['x','v'],[2,6])
 
 
 
@@ -209,8 +209,8 @@ DVA_table['y'] = y
 DVA_table['z'] = z
 
 
-#print(DVA_table)
+print(DVA_table)
 
 #print(u.valt('right'))
 #print(str(DVB('v','z')))
-table(DVA_table,'u','v','x','y','z')'''
+#table(DVA_table,'u','v','x','y','z')
